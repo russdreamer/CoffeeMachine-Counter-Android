@@ -1,6 +1,6 @@
-package com.toolittlespot.coffeemachinecleancounter.business_logic.language
+package com.toolittlespot.coffeemachinecleancounter.businesslogic.language
 
-import com.toolittlespot.coffeemachinecleancounter.business_logic.AppUtils
+import com.toolittlespot.coffeemachinecleancounter.businesslogic.AppUtils
 
 
 class LangMap {

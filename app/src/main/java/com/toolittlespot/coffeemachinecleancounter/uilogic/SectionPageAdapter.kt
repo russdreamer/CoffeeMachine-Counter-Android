@@ -1,4 +1,4 @@
-package com.toolittlespot.coffeemachinecleancounter.ui_logic
+package com.toolittlespot.coffeemachinecleancounter.uilogic
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager

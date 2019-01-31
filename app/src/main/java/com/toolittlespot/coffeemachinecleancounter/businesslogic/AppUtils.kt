@@ -1,4 +1,4 @@
-package com.toolittlespot.coffeemachinecleancounter.business_logic
+package com.toolittlespot.coffeemachinecleancounter.businesslogic
 
 import android.support.design.widget.Snackbar
 import android.view.View

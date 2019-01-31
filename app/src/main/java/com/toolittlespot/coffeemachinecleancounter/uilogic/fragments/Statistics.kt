@@ -1,4 +1,4 @@
-package com.toolittlespot.coffeemachinecleancounter.ui_logic.fragments
+package com.toolittlespot.coffeemachinecleancounter.uilogic.fragments
 
 
 import android.os.Bundle

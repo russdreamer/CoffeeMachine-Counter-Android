@@ -1,4 +1,4 @@
-package com.toolittlespot.coffeemachinecleancounter.ui_logic.fragments
+package com.toolittlespot.coffeemachinecleancounter.uilogic.fragments
 
 
 import android.os.Bundle
@@ -10,8 +10,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
 import com.toolittlespot.coffeemachinecleancounter.R
-import com.toolittlespot.coffeemachinecleancounter.business_logic.AppUtils
-import com.toolittlespot.coffeemachinecleancounter.ui_logic.MainActivity
+import com.toolittlespot.coffeemachinecleancounter.businesslogic.AppUtils
+import com.toolittlespot.coffeemachinecleancounter.uilogic.MainActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainPage : Fragment() {

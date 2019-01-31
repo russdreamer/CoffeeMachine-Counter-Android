@@ -1,4 +1,4 @@
-package com.toolittlespot.coffeemachinecleancounter.business_logic.language
+package com.toolittlespot.coffeemachinecleancounter.businesslogic.language
 
 enum class Dict(val russian: String, val english: String) {
     STATISTICS(

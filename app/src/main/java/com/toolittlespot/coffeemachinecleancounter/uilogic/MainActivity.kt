@@ -1,4 +1,4 @@
-package com.toolittlespot.coffeemachinecleancounter.ui_logic
+package com.toolittlespot.coffeemachinecleancounter.uilogic
 
 import android.os.Bundle
 import android.support.design.widget.TabLayout
@@ -7,15 +7,15 @@ import android.support.v4.view.GravityCompat
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
-import android.view.MenuItem
 import android.view.Window
 import android.view.WindowManager
 import com.toolittlespot.coffeemachinecleancounter.R
-import com.toolittlespot.coffeemachinecleancounter.business_logic.language.Dict
-import com.toolittlespot.coffeemachinecleancounter.business_logic.language.LangMap
-import com.toolittlespot.coffeemachinecleancounter.ui_logic.fragments.History
-import com.toolittlespot.coffeemachinecleancounter.ui_logic.fragments.MainPage
-import com.toolittlespot.coffeemachinecleancounter.ui_logic.fragments.Statistics
+import com.toolittlespot.coffeemachinecleancounter.businesslogic.Application
+import com.toolittlespot.coffeemachinecleancounter.businesslogic.language.Dict
+import com.toolittlespot.coffeemachinecleancounter.businesslogic.language.LangMap
+import com.toolittlespot.coffeemachinecleancounter.uilogic.fragments.History
+import com.toolittlespot.coffeemachinecleancounter.uilogic.fragments.MainPage
+import com.toolittlespot.coffeemachinecleancounter.uilogic.fragments.Statistics
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
@@ -23,9 +23,11 @@ class MainActivity : AppCompatActivity(){
 
     private lateinit var pageAdapter: SectionPageAdapter
     private lateinit var viewPager: ViewPager
+    lateinit var application: Application
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        startApplication()
         makeFullScreen()
         setContentView(R.layout.activity_main)
         createActionBar()
@@ -33,6 +35,11 @@ class MainActivity : AppCompatActivity(){
         changeMainLayout(MainPage())
 
 
+    }
+
+    private fun startApplication() {
+        //if no saved app state
+        application = Application()
     }
 
     private fun makeFullScreen() {

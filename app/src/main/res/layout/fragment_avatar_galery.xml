@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             tools:context=".uilogic.fragments.AvatarGallery"
+                                             android:id="@+id/frameLayout2">
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/back_btn" tools:layout_editor_absoluteX="0dp"
+            app:layout_constraintVertical_bias="1.0">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                      android:orientation="vertical" android:id="@+id/linearLayout2">
+            <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                <GridLayout
+                        android:id="@+id/avatars"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:columnCount="3"
+                        android:rowCount="1"
+                        android:background="@android:color/background_light"
+                        tools:layout_conversion_absoluteHeight="130dp"
+                        tools:layout_conversion_absoluteWidth="411dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+                    <ImageButton
+                            android:text="+"
+                            android:layout_height="130dp" android:id="@+id/add_user_btn" android:textSize="36sp"
+                            android:textStyle="bold" android:textAllCaps="false"
+                            android:layout_width="130dp" android:src="@drawable/avatar_1" android:scaleType="centerCrop"
+                    />
+                    <ImageButton
+                            android:text="+"
+                            android:layout_height="130dp" android:id="@+id/add_user_btn2" android:textSize="36sp"
+                            android:textStyle="bold" android:textAllCaps="false"
+                            android:layout_width="130dp" android:scaleType="centerCrop"
+                            android:adjustViewBounds="false" android:cropToPadding="false"
+                            android:src="@drawable/avatar_2"/>
+                </GridLayout>
+            </android.support.constraint.ConstraintLayout>
+        </LinearLayout>
+    </ScrollView>
+    <Button
+            android:text="CANCEL"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/back_btn"
+            tools:layout_conversion_absoluteHeight="48dp" tools:layout_conversion_absoluteWidth="88dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+
+</android.support.constraint.ConstraintLayout>
