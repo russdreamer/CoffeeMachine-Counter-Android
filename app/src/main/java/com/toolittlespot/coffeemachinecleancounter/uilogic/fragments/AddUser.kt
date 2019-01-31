@@ -1,7 +1,10 @@
 package com.toolittlespot.coffeemachinecleancounter.uilogic.fragments
 
 
+import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.provider.MediaStore
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -39,6 +42,23 @@ class AddUser : Fragment() {
 
     private fun configButtons() {
         configCollectionBtn()
+        configCameraBtn()
+    }
+
+    private fun configCameraBtn() {
+        fragmentView.findViewById<ImageButton>(R.id.camera_btn).setOnClickListener{
+            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            startActivityForResult(intent, 0)
+
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (data?.extras != null) {
+            val bitmap = data.extras?.get("data") as Bitmap
+            fragmentView.findViewById<ImageView>(R.id.user_avatar_img).setImageBitmap(bitmap)
+        }
     }
 
     private fun configCollectionBtn() {
