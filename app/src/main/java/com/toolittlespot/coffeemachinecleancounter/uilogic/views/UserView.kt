@@ -2,16 +2,23 @@ package com.toolittlespot.coffeemachinecleancounter.uilogic.views
 
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.widget.ImageButton
 import com.toolittlespot.coffeemachinecleancounter.R
 
 class UserView(context: Context?) : ImageButton(context){
 
     lateinit var name: String
-    var avatarResource: Drawable? = null
+    lateinit var avatarUri: Uri
 
-    fun init(size: Int){
-        super.setBackgroundResource(R.mipmap.ic_launcher)
+    constructor(name: String, avatarUri: Uri, size: Int, context: Context?) : this(context) {
+        this.name = name
+        this.avatarUri = avatarUri
+        configButton(size)
+    }
+
+    fun configButton(size: Int){
+        super.setImageURI(avatarUri)
         super.setMinimumWidth(size)
         super.setMinimumHeight(size)
         setOnClickListener(null)
@@ -20,4 +27,7 @@ class UserView(context: Context?) : ImageButton(context){
     override fun setOnClickListener(l: OnClickListener?) {
         println("CLICKED!!")
     }
+
+
+
 }

@@ -2,6 +2,7 @@ package com.toolittlespot.coffeemachinecleancounter.uilogic.fragments
 
 
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.util.DisplayMetrics
@@ -14,6 +15,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 
 import com.toolittlespot.coffeemachinecleancounter.R
+import com.toolittlespot.coffeemachinecleancounter.businesslogic.AppUtils
 import com.toolittlespot.coffeemachinecleancounter.uilogic.MainActivity
 
 
@@ -63,11 +65,9 @@ class AvatarGallery : Fragment() {
         img.layoutParams = params
 
         img.setOnClickListener {
-            val newUser = (activity as MainActivity).application.tempUser
-            if (newUser != null) {
-                newUser.avatarResource = img.drawable
-                (activity as MainActivity).onBackPressed()
-            }
+            val bitmap = BitmapFactory.decodeResource(resources, imageResource)
+            AppUtils().saveTempImage(bitmap, context)
+            (activity as MainActivity).onBackPressed()
         }
         return img
     }

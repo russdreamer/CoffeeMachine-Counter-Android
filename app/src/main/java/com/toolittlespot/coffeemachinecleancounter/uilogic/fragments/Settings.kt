@@ -9,7 +9,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.GridLayout
 import com.toolittlespot.coffeemachinecleancounter.R
+import com.toolittlespot.coffeemachinecleancounter.businesslogic.AppUtils
 import com.toolittlespot.coffeemachinecleancounter.uilogic.MainActivity
+import java.nio.file.Files
 
 class Settings : Fragment() {
     private lateinit var fragmentView: View
@@ -52,7 +54,7 @@ class Settings : Fragment() {
     }
 
     private fun clearTempUser() {
-        (activity as MainActivity).application.tempUser = null
+        AppUtils().deleteTempImage(this.context)
     }
 
 

@@ -15,23 +15,22 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
+import com.toolittlespot.coffeemachinecleancounter.CAPTURE_IMAGE
+import com.toolittlespot.coffeemachinecleancounter.PICK_IMAGE
 import com.toolittlespot.coffeemachinecleancounter.R
+import com.toolittlespot.coffeemachinecleancounter.businesslogic.AppUtils
 import com.toolittlespot.coffeemachinecleancounter.uilogic.MainActivity
 import com.toolittlespot.coffeemachinecleancounter.uilogic.views.UserView
-import kotlinx.android.synthetic.main.nav_header_main.*
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
+import java.util.*
 
 class AddUser : Fragment() {
     private lateinit var fragmentView: View
-    private lateinit var newUser: UserView
-    private val CAPTURE_IMAGE: Int = 0
-    private val PICK_IMAGE: Int = 100
-    private val USERS_IMAGE_FOLDER: String = "users_images"
-    private val TEMP_IMAGE: String = "temp_user_image.jpg"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,24 +38,28 @@ class AddUser : Fragment() {
     ): View? {
 
         fragmentView =  inflater.inflate(R.layout.fragment_add_user, container, false)
-        createDraftUser()
         configButtons()
 
         return fragmentView
-    }
-
-    private fun createDraftUser() {
-        val app = (activity as MainActivity).application
-        if (app.tempUser == null){
-            app.tempUser = UserView(this.context)
-            newUser = app.tempUser!!
-        }
     }
 
     private fun configButtons() {
         configCollectionBtn()
         configCameraBtn()
         configGalleryBtn()
+        configSaveBtn()
+    }
+
+    private fun configSaveBtn() {
+        fragmentView.findViewById<Button>(R.id.save_user_btn).setOnClickListener {
+            /*if (isTempUserFieldFilled()) {
+                val imageName = Date().time.toString()
+                if ( saveDrawableToFile(newUser.avatarResource, imageName) ){
+                    val user = UserView()
+                    (activity as MainActivity).application.users.add()
+                }
+            }*/
+        }
     }
 
     private fun configGalleryBtn() {
@@ -77,44 +80,23 @@ class AddUser : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (resultCode == RESULT_OK){
+            fragmentView.findViewById<ImageView>(R.id.user_avatar_img).setImageDrawable(null)
             when(requestCode) {
-                PICK_IMAGE -> setAvatarImage(data?.data)
-                CAPTURE_IMAGE -> setAvatarImage(data?.extras?.get("data") as Bitmap)
+                PICK_IMAGE -> saveToTempImage(data?.data)
+                CAPTURE_IMAGE -> saveToTempImage(data?.extras?.get("data") as Bitmap)
             }
         }
     }
 
-    private fun setAvatarImage(data: Bitmap) {
-        newUser.avatarResource = BitmapDrawable(resources, data)
+    private fun saveToTempImage(data: Bitmap) {
+        AppUtils().saveTempImage(data, this.context)
     }
 
-    private fun setAvatarImage(data: Uri?) {
+    private fun saveToTempImage(data: Uri?) {
         if (data != null) {
-            val drawable = getDrawableFromUri(data)
-            newUser.avatarResource = drawable
+            val bitmap = MediaStore.Images.Media.getBitmap(context?.contentResolver, data)
+            AppUtils().saveTempImage(bitmap, this.context)
         }
-    }
-
-    private fun getDrawableFromUri(uri: Uri): Drawable {
-        var drawable: Drawable
-        try {
-            val inputStream = activity?.contentResolver?.openInputStream(uri)
-            drawable = Drawable.createFromStream(inputStream, uri.toString())
-        } catch (e: FileNotFoundException) {
-            drawable = resources.getDrawable(R.drawable.avatar_incognito)
-        }
-        return drawable
-    }
-
-    private fun saveBitmapToFile(bitmap: Bitmap, imageName: String) {
-        val cw = ContextWrapper(this.context)
-        val directory = cw.getDir(USERS_IMAGE_FOLDER, Context.MODE_PRIVATE)
-        val imagePath = File(directory, imageName)
-
-        val out = FileOutputStream(imagePath)
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out)
-        out.flush()
-        out.close()
     }
 
     private fun configCollectionBtn() {
@@ -129,7 +111,9 @@ class AddUser : Fragment() {
     }
 
     private fun updateAvatar() {
-        if (newUser.avatarResource != null)
-            fragmentView.findViewById<ImageView>(R.id.user_avatar_img).setImageDrawable(newUser.avatarResource)
+        val tempImage = AppUtils().getTempImageFile(context)
+        if (tempImage.exists()){
+            fragmentView.findViewById<ImageView>(R.id.user_avatar_img).setImageURI(Uri.fromFile(tempImage))
+        }
     }
 }
