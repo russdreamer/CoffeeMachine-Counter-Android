@@ -20,10 +20,21 @@ class Settings : Fragment() {
     ): View? {
 
         fragmentView = inflater.inflate(R.layout.fragment_settings, container, false)
-        configAddUserBtn()
+        configButtons()
         fillUsersGrid()
 
         return fragmentView
+    }
+
+    private fun configButtons() {
+        configAddUserBtn()
+        configLanguageBtn()
+    }
+
+    private fun configLanguageBtn() {
+        fragmentView.findViewById<Button>(R.id.choose_language_btn).setOnClickListener{
+            (activity as MainActivity).changeMainLayout(Language())
+        }
     }
 
     private fun fillUsersGrid() {

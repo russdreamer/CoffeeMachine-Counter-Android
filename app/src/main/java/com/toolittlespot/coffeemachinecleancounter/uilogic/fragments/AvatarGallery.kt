@@ -65,7 +65,7 @@ class AvatarGallery : Fragment() {
         img.setOnClickListener {
             val newUser = (activity as MainActivity).application.tempUser
             if (newUser != null) {
-                newUser.avatarResource = imageResource
+                newUser.avatarResource = img.drawable
                 (activity as MainActivity).onBackPressed()
             }
         }
