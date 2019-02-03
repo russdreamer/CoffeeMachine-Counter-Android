@@ -22,6 +22,7 @@ import com.toolittlespot.coffeemachinecleancounter.R
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.AppUtils
 import com.toolittlespot.coffeemachinecleancounter.uilogic.MainActivity
 import com.toolittlespot.coffeemachinecleancounter.uilogic.views.UserView
+import java.io.File
 import java.util.*
 
 class UserConstructor : Fragment() {
@@ -71,6 +72,7 @@ class UserConstructor : Fragment() {
         }
         else deleteBtn.setOnClickListener{
             (activity as MainActivity).application.users.remove(user!!.getUserId())
+            File(user!!.avatarUri.path).delete()
         }
     }
 
@@ -86,7 +88,7 @@ class UserConstructor : Fragment() {
                     (activity as MainActivity).application.users[newUser.getUserId()] = newUser
                 }
                 else{
-                    AppUtils().saveTempImageAsUserPic(user!!.avatarUri.lastPathSegment, context)
+                    AppUtils().saveTempImageAsUserPic(user!!.avatarUri.lastPathSegment!!, context)
                     user!!.updateAvatar()
                     user!!.name = userNameField.text.toString()
                 }
