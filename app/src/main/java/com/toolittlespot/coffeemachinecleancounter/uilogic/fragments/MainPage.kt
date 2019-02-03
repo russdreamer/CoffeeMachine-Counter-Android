@@ -35,6 +35,9 @@ class MainPage : Fragment() {
         return inflate;
     }
 
-
-
+    override fun onResume() {
+        super.onResume()
+        if ((activity as MainActivity).application.users.isEmpty())
+            (activity as MainActivity).changeMainLayout(Settings(), false)
+    }
 }

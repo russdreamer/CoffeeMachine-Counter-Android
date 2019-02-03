@@ -73,6 +73,7 @@ class UserConstructor : Fragment() {
         else deleteBtn.setOnClickListener{
             (activity as MainActivity).application.users.remove(user!!.getUserId())
             File(user!!.avatarUri.path).delete()
+            (activity as MainActivity).onBackPressed()
         }
     }
 
