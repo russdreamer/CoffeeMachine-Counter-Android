@@ -5,9 +5,11 @@ import android.content.ContextWrapper
 import android.graphics.Bitmap
 import android.net.Uri
 import android.support.design.widget.Snackbar
+import android.util.DisplayMetrics
 import android.view.View
 import com.toolittlespot.coffeemachinecleancounter.TEMP_IMAGE
 import com.toolittlespot.coffeemachinecleancounter.USERS_IMAGE_FOLDER
+import com.toolittlespot.coffeemachinecleancounter.uilogic.MainActivity
 import java.io.File
 import java.io.FileOutputStream
 import java.util.*
@@ -44,10 +46,14 @@ class AppUtils {
         out.close()
 
         return res
-
     }
 
-    fun getApplicationFolder(folderName: String, context: Context?): File? {
+    fun saveTempImageAsUserPic(imageName: String, context: Context?): File{
+        val directory = getApplicationFolder(USERS_IMAGE_FOLDER, context)
+        return getTempImageFile(context).copyTo(File(directory, imageName), true)
+    }
+
+    fun getApplicationFolder(folderName: String, context: Context?): File {
         val cw = ContextWrapper(context)
         return cw.getDir(folderName, Context.MODE_PRIVATE)
 
@@ -56,5 +62,11 @@ class AppUtils {
     fun getTempImageFile(context: Context?): File {
         val directory = getApplicationFolder(USERS_IMAGE_FOLDER, context)
         return File(directory, TEMP_IMAGE)
+    }
+
+    fun getDevicePixelWidth(activity: MainActivity): DisplayMetrics {
+        val displayMetrics = DisplayMetrics()
+        activity.windowManager.defaultDisplay.getMetrics(displayMetrics)
+        return displayMetrics
     }
 }

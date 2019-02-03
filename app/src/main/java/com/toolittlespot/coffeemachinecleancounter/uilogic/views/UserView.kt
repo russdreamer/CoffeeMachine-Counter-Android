@@ -1,33 +1,29 @@
 package com.toolittlespot.coffeemachinecleancounter.uilogic.views
 
 import android.content.Context
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.widget.ImageButton
-import com.toolittlespot.coffeemachinecleancounter.R
+import java.util.*
 
 class UserView(context: Context?) : ImageButton(context){
 
     lateinit var name: String
     lateinit var avatarUri: Uri
+    private var userId: Long = 0
 
-    constructor(name: String, avatarUri: Uri, size: Int, context: Context?) : this(context) {
+    constructor(name: String, avatarUri: Uri, context: Context?) : this(context) {
         this.name = name
         this.avatarUri = avatarUri
-        configButton(size)
+        this.userId = Date().time
+        updateAvatar()
     }
 
-    fun configButton(size: Int){
+    fun updateAvatar(){
+        super.setImageURI(null)
         super.setImageURI(avatarUri)
-        super.setMinimumWidth(size)
-        super.setMinimumHeight(size)
-        setOnClickListener(null)
     }
 
-    override fun setOnClickListener(l: OnClickListener?) {
-        println("CLICKED!!")
+    fun getUserId(): Long{
+       return userId
     }
-
-
-
 }

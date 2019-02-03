@@ -15,6 +15,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 
 import com.toolittlespot.coffeemachinecleancounter.R
+import com.toolittlespot.coffeemachinecleancounter.Views
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.AppUtils
 import com.toolittlespot.coffeemachinecleancounter.uilogic.MainActivity
 
@@ -42,13 +43,12 @@ class AvatarGallery : Fragment() {
 
     private fun fillGallery() {
         val avatarsGrid = fragmentView.findViewById<GridLayout>(R.id.avatars)
-        val displayMetrics = DisplayMetrics()
-        (activity as MainActivity).windowManager.defaultDisplay.getMetrics(displayMetrics)
+        val size = AppUtils().getDevicePixelWidth(activity as MainActivity).widthPixels / 3
 
         for (i in 1..16){
             val srcName = "avatar_$i"
             val resID = resources.getIdentifier(srcName, "drawable", activity?.packageName)
-            val image = createAvatar(this.context, resID, displayMetrics.widthPixels / 3)
+            val image = createAvatar(this.context, resID, size)
 
             avatarsGrid.addView(image)
         }
@@ -59,10 +59,7 @@ class AvatarGallery : Fragment() {
         img.setImageResource(imageResource)
         img.scaleType = ImageView.ScaleType.CENTER_CROP
 
-        val params = GridLayout.LayoutParams()
-        params.height = size
-        params.width = size
-        img.layoutParams = params
+        Views().changeViewSize(img, size)
 
         img.setOnClickListener {
             val bitmap = BitmapFactory.decodeResource(resources, imageResource)

@@ -8,10 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.GridLayout
+import android.widget.ImageView
 import com.toolittlespot.coffeemachinecleancounter.R
+import com.toolittlespot.coffeemachinecleancounter.Views
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.AppUtils
 import com.toolittlespot.coffeemachinecleancounter.uilogic.MainActivity
-import java.nio.file.Files
 
 class Settings : Fragment() {
     private lateinit var fragmentView: View
@@ -22,9 +23,9 @@ class Settings : Fragment() {
     ): View? {
 
         fragmentView = inflater.inflate(R.layout.fragment_settings, container, false)
+        clearTempUser()
         configButtons()
         fillUsersGrid()
-
         return fragmentView
     }
 
@@ -41,15 +42,25 @@ class Settings : Fragment() {
 
     private fun fillUsersGrid() {
         val usersGrid = fragmentView.findViewById<GridLayout>(R.id.users)
-        val usersList = (activity as MainActivity).application.users
-        for (i in 0..(usersList.size - 1))
-            usersGrid.addView(usersList[i], usersGrid.childCount - 1)
+        val size = AppUtils().getDevicePixelWidth(activity as MainActivity).widthPixels / 3
+        val usersList = (activity as MainActivity).application.users.values
+        usersList.forEach {userView->
+            usersGrid.addView(userView, usersGrid.childCount - 1)
+            userView.scaleType = ImageView.ScaleType.CENTER_CROP
+            Views().changeViewSize(userView, size)
+            userView.setOnClickListener{
+                var uc = UserConstructor()
+                uc.setUserView(userView)
+                (activity as MainActivity).changeMainLayout(uc)
+            }
+        }
     }
 
     private fun configAddUserBtn() {
-        fragmentView.findViewById<Button>(R.id.add_user_btn).setOnClickListener {
-            clearTempUser()
-            (activity as MainActivity).changeMainLayout(AddUser())
+        val addUserBtn = fragmentView.findViewById<Button>(R.id.add_user_btn)
+        Views().changeViewSize(addUserBtn, AppUtils().getDevicePixelWidth(activity as MainActivity).widthPixels / 3)
+        addUserBtn.setOnClickListener {
+            (activity as MainActivity).changeMainLayout(UserConstructor())
         }
     }
 
@@ -57,5 +68,8 @@ class Settings : Fragment() {
         AppUtils().deleteTempImage(this.context)
     }
 
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        fragmentView.findViewById<GridLayout>(R.id.users).removeAllViews()
+    }
 }
