@@ -11,6 +11,7 @@ import android.widget.*
 import com.toolittlespot.coffeemachinecleancounter.R
 import com.toolittlespot.coffeemachinecleancounter.Views
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.AppUtils
+import com.toolittlespot.coffeemachinecleancounter.businesslogic.dialogs.Dialogs
 import com.toolittlespot.coffeemachinecleancounter.uilogic.MainActivity
 
 class Settings : Fragment() {
@@ -18,6 +19,7 @@ class Settings : Fragment() {
     private lateinit var addUserBtn: Button
     private lateinit var languageBtn: Button
     private lateinit var saveButton: Button
+    private lateinit var resetButton: Button
     private lateinit var usesBeforeClean: EditText
 
     override fun onCreateView(
@@ -36,8 +38,21 @@ class Settings : Fragment() {
         configAddUserBtn()
         configLanguageBtn()
         configSaveBtn()
+        configResetBtn()
 
         configUsesBeforeClean()
+    }
+
+    private fun configResetBtn() {
+        resetButton = fragmentView.findViewById(R.id.reset_btn)
+        resetButton.setOnClickListener {
+            val dialog = Dialogs.createResetDialog(this.activity!!)
+            dialog.findViewById<Button>(R.id.positive_dialog_btn).setOnClickListener {
+                dialog.dismiss()
+                (activity as MainActivity).removeAppState()
+            }
+            dialog.show()
+        }
     }
 
     private fun configUsesBeforeClean() {
@@ -87,7 +102,7 @@ class Settings : Fragment() {
             usersGrid.addView(userView, usersGrid.childCount - 1)
 
             userView.setOnClickListener{
-                var uc = UserConstructor()
+                val uc = UserConstructor()
                 uc.setUser(user)
                 (activity as MainActivity).changeMainLayout(uc)
             }

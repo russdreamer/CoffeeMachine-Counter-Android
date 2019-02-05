@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity(){
     }
 
     private fun makeFullScreen() {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN)
     }
@@ -87,7 +87,7 @@ class MainActivity : AppCompatActivity(){
     fun changeMainLayout(newLayout: Fragment, addToBackStack: Boolean = true) {
         val fragmentManager = supportFragmentManager
 
-        var transaction = fragmentManager.beginTransaction()
+        val transaction = fragmentManager.beginTransaction()
             .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
             .replace(
             R.id.mainFragment,
@@ -121,5 +121,11 @@ class MainActivity : AppCompatActivity(){
         val json = prefs.getString("application", null)
         val type = object: TypeToken<Application>() {}.type
         return Gson().fromJson(json, type)
+    }
+
+    fun removeAppState(){
+        getSharedPreferences("saved_state", Context.MODE_PRIVATE).edit().clear().apply()
+        finish()
+        startActivity(intent)
     }
 }

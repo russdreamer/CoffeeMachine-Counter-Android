@@ -11,7 +11,7 @@
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/save_settings_btn">
-        <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                       android:orientation="vertical">
             <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
@@ -119,6 +119,16 @@
                         app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="8dp"
                         app:layout_constraintTop_toBottomOf="@+id/divider" android:textSize="24sp"
                         android:textAlignment="center"/>
+                <Button
+                        android:text="RESET ALL SETTINGS"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/reset_btn"
+                        app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:textSize="24sp"
+                        android:textAlignment="center" app:layout_constraintTop_toBottomOf="@+id/choose_language_btn"
+                        android:layout_marginTop="16dp"/>
             </android.support.constraint.ConstraintLayout>
         </LinearLayout>
     </ScrollView>

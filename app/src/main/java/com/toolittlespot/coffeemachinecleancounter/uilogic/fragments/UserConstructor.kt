@@ -2,6 +2,7 @@ package com.toolittlespot.coffeemachinecleancounter.uilogic.fragments
 
 
 import android.app.Activity.RESULT_OK
+import android.app.Dialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
@@ -20,6 +21,7 @@ import com.toolittlespot.coffeemachinecleancounter.CAPTURE_IMAGE
 import com.toolittlespot.coffeemachinecleancounter.PICK_IMAGE
 import com.toolittlespot.coffeemachinecleancounter.R
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.AppUtils
+import com.toolittlespot.coffeemachinecleancounter.businesslogic.dialogs.Dialogs
 import com.toolittlespot.coffeemachinecleancounter.uilogic.MainActivity
 import com.toolittlespot.coffeemachinecleancounter.uilogic.views.User
 import java.io.File
@@ -49,7 +51,7 @@ class UserConstructor : Fragment() {
     private fun fillFields() {
         if (user != null){
             userNameField.setText(user!!.name)
-            if (!AppUtils().getTempImageFile(context).exists()){
+            if (!AppUtils().getTempImageFile(context).exists()) {
                 saveToTempImage(Uri.fromFile(File(user!!.avatarPath)))
             }
         }
@@ -70,10 +72,17 @@ class UserConstructor : Fragment() {
         if (this.user == null){
             deleteBtn.visibility = View.GONE
         }
-        else deleteBtn.setOnClickListener{
-            MainActivity.application.users.remove(user!!.getUserId())
-            File(user!!.avatarPath).delete()
-            (activity as MainActivity).onBackPressed()
+        else {
+            deleteBtn.setOnClickListener{
+                val dialog = Dialogs.createDeleteUserDialog(this.context!!)
+                dialog.findViewById<Button>(R.id.positive_dialog_btn).setOnClickListener {
+                    dialog.dismiss()
+                    MainActivity.application.users.remove(user!!.getUserId())
+                    File(user!!.avatarPath).delete()
+                    (activity as MainActivity).onBackPressed()
+                }
+                dialog.show()
+            }
         }
     }
 
