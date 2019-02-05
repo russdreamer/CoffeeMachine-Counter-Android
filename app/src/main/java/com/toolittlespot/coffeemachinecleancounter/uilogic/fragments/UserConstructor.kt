@@ -21,16 +21,16 @@ import com.toolittlespot.coffeemachinecleancounter.PICK_IMAGE
 import com.toolittlespot.coffeemachinecleancounter.R
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.AppUtils
 import com.toolittlespot.coffeemachinecleancounter.uilogic.MainActivity
-import com.toolittlespot.coffeemachinecleancounter.uilogic.views.UserView
+import com.toolittlespot.coffeemachinecleancounter.uilogic.views.User
 import java.io.File
 import java.util.*
 
 class UserConstructor : Fragment() {
     private lateinit var fragmentView: View
     private lateinit var userNameField: EditText
-    private var user: UserView? = null
+    private var user: User? = null
 
-    fun setUserView(existingUserView: UserView){
+    fun setUser(existingUserView: User){
         user = existingUserView
     }
 
@@ -50,7 +50,7 @@ class UserConstructor : Fragment() {
         if (user != null){
             userNameField.setText(user!!.name)
             if (!AppUtils().getTempImageFile(context).exists()){
-                saveToTempImage(user!!.avatarUri)
+                saveToTempImage(Uri.fromFile(File(user!!.avatarPath)))
             }
         }
     }
@@ -71,8 +71,8 @@ class UserConstructor : Fragment() {
             deleteBtn.visibility = View.GONE
         }
         else deleteBtn.setOnClickListener{
-            (activity as MainActivity).application.users.remove(user!!.getUserId())
-            File(user!!.avatarUri.path).delete()
+            MainActivity.application.users.remove(user!!.getUserId())
+            File(user!!.avatarPath).delete()
             (activity as MainActivity).onBackPressed()
         }
     }
@@ -86,11 +86,10 @@ class UserConstructor : Fragment() {
             if (isFieldsFilled()) {
                 if (user == null){
                     val newUser = createUser()
-                    (activity as MainActivity).application.users[newUser.getUserId()] = newUser
+                    MainActivity.application.users[newUser.getUserId()] = newUser
                 }
                 else{
-                    AppUtils().saveTempImageAsUserPic(user!!.avatarUri.lastPathSegment!!, context)
-                    user!!.updateAvatar()
+                    AppUtils().saveTempImageAsUserPic(File(user!!.avatarPath).name, context)
                     user!!.name = userNameField.text.toString()
                 }
                 (activity as MainActivity).onBackPressed()
@@ -99,10 +98,10 @@ class UserConstructor : Fragment() {
         }
     }
 
-    private fun createUser(): UserView {
+    private fun createUser(): User {
         val imageName = Date().time.toString()
         val imageFile = AppUtils().saveTempImageAsUserPic(imageName, context)
-        return UserView(userNameField.text.toString(), Uri.fromFile(imageFile), context)
+        return User(userNameField.text.toString(), imageFile.absolutePath)
     }
 
     private fun isFieldsFilled(): Boolean {
@@ -142,7 +141,7 @@ class UserConstructor : Fragment() {
     private fun saveToTempImage(data: Uri?) {
         if (data != null) {
             val bitmap = MediaStore.Images.Media.getBitmap(context?.contentResolver, data)
-            AppUtils().saveTempImage(bitmap, this.context)
+            saveToTempImage(bitmap)
         }
     }
 

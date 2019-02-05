@@ -1,5 +1,6 @@
 package com.toolittlespot.coffeemachinecleancounter.uilogic
 
+import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
@@ -9,6 +10,8 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.Window
 import android.view.WindowManager
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.toolittlespot.coffeemachinecleancounter.R
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.Application
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.language.Dict
@@ -24,7 +27,10 @@ class MainActivity : AppCompatActivity(){
 
     private lateinit var pageAdapter: SectionPageAdapter
     private lateinit var viewPager: ViewPager
-    lateinit var application: Application
+
+    companion object {
+        lateinit var application: Application
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,11 +42,14 @@ class MainActivity : AppCompatActivity(){
     }
 
     private fun startApplication() {
-        //if no saved app state orx
-        application = Application()
-        changeMainLayout(Settings(), false)
-        //else
-        //changeMainLayout(MainPage())
+        val appState = loadAppState()
+        if (appState != null) {
+            MainActivity.application = appState
+            changeMainLayout(MainPage())
+        } else {
+            MainActivity.application = Application()
+            changeMainLayout(Settings(), false)
+        }
     }
 
     private fun makeFullScreen() {
@@ -97,5 +106,20 @@ class MainActivity : AppCompatActivity(){
 
         val tabLayout: TabLayout = findViewById(R.id.tabs)
         tabLayout.setupWithViewPager(viewPager)
+    }
+
+    fun saveAppState(){
+        val prefs = getSharedPreferences("saved_state", Context.MODE_PRIVATE)
+        val editor = prefs.edit()
+        val json = Gson().toJson(MainActivity.application)
+        editor.putString("application", json)
+        editor.apply()
+    }
+
+    private fun loadAppState() :Application?{
+        val prefs = getSharedPreferences("saved_state", Context.MODE_PRIVATE)
+        val json = prefs.getString("application", null)
+        val type = object: TypeToken<Application>() {}.type
+        return Gson().fromJson(json, type)
     }
 }

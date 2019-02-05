@@ -7,10 +7,7 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.GridLayout
-import android.widget.ImageView
+import android.widget.*
 import com.toolittlespot.coffeemachinecleancounter.R
 import com.toolittlespot.coffeemachinecleancounter.Views
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.AppUtils
@@ -45,23 +42,33 @@ class Settings : Fragment() {
 
     private fun configUsesBeforeClean() {
         usesBeforeClean = fragmentView.findViewById(R.id.uses_before_clean_amount_setter)
+        if (MainActivity.application.maxUsesAmount > 0){
+            usesBeforeClean.setText(MainActivity.application.maxUsesAmount.toString())
+        }
     }
 
     private fun configSaveBtn() {
         saveButton = fragmentView.findViewById(R.id.save_settings_btn)
         saveButton.setOnClickListener {
-            if (isFieldsFilled())
-                if ( (activity as MainActivity).supportFragmentManager.backStackEntryCount > 0 )
+            if (isFieldsFilled()) {
+                saveSettings()
+                if ((activity as MainActivity).supportFragmentManager.backStackEntryCount > 0)
                     (activity as MainActivity).onBackPressed()
                 else
                     (activity as MainActivity).changeMainLayout(MainPage(), false)
+            }
             else
                 AppUtils().showSnackBar(fragmentView, "Заполните все параметры!")
         }
     }
 
+    private fun saveSettings() {
+        MainActivity.application.maxUsesAmount = Integer.valueOf(usesBeforeClean.text.toString())
+        (activity as MainActivity).saveAppState()
+    }
+
     private fun isFieldsFilled(): Boolean {
-        return ! TextUtils.isEmpty(usesBeforeClean.text) && (activity as MainActivity).application.users.size > 0
+        return ! TextUtils.isEmpty(usesBeforeClean.text) && MainActivity.application.users.size > 0
     }
 
     private fun configLanguageBtn() {
@@ -74,14 +81,14 @@ class Settings : Fragment() {
     private fun fillUsersGrid() {
         val usersGrid = fragmentView.findViewById<GridLayout>(R.id.users)
         val size = AppUtils().getDevicePixelWidth(activity as MainActivity).widthPixels / 3
-        val usersList = (activity as MainActivity).application.users.values
-        usersList.forEach {userView->
+        val usersList = MainActivity.application.users.values
+        usersList.forEach {user->
+            val userView = Views.createUserView(user, size, context)
             usersGrid.addView(userView, usersGrid.childCount - 1)
-            userView.scaleType = ImageView.ScaleType.CENTER_CROP
-            Views().changeViewSize(userView, size)
+
             userView.setOnClickListener{
                 var uc = UserConstructor()
-                uc.setUserView(userView)
+                uc.setUser(user)
                 (activity as MainActivity).changeMainLayout(uc)
             }
         }
@@ -89,7 +96,8 @@ class Settings : Fragment() {
 
     private fun configAddUserBtn() {
         addUserBtn = fragmentView.findViewById(R.id.add_user_btn)
-        Views().changeViewSize(addUserBtn, AppUtils().getDevicePixelWidth(activity as MainActivity).widthPixels / 3)
+        val size = AppUtils().getDevicePixelWidth(activity as MainActivity).widthPixels / 3
+        Views.changeViewSize(addUserBtn, size)
         addUserBtn.setOnClickListener {
             (activity as MainActivity).changeMainLayout(UserConstructor())
         }
@@ -97,10 +105,5 @@ class Settings : Fragment() {
 
     private fun clearTempUser() {
         AppUtils().deleteTempImage(this.context)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        fragmentView.findViewById<GridLayout>(R.id.users).removeAllViews()
     }
 }

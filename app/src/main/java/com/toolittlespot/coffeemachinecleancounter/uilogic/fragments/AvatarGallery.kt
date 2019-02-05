@@ -59,7 +59,7 @@ class AvatarGallery : Fragment() {
         img.setImageResource(imageResource)
         img.scaleType = ImageView.ScaleType.CENTER_CROP
 
-        Views().changeViewSize(img, size)
+        Views.changeViewSize(img, size)
 
         img.setOnClickListener {
             val bitmap = BitmapFactory.decodeResource(resources, imageResource)

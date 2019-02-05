@@ -11,6 +11,7 @@ import android.widget.Button
 import android.widget.ImageButton
 import com.toolittlespot.coffeemachinecleancounter.R
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.AppUtils
+import com.toolittlespot.coffeemachinecleancounter.businesslogic.Application
 import com.toolittlespot.coffeemachinecleancounter.uilogic.MainActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -37,7 +38,7 @@ class MainPage : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        if ((activity as MainActivity).application.users.isEmpty())
+        if (MainActivity.application.users.isEmpty())
             (activity as MainActivity).changeMainLayout(Settings(), false)
     }
 }
