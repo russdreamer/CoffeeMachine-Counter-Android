@@ -2,7 +2,6 @@ package com.toolittlespot.coffeemachinecleancounter.uilogic.fragments
 
 
 import android.app.Activity.RESULT_OK
-import android.app.Dialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
@@ -79,6 +78,7 @@ class UserConstructor : Fragment() {
                     dialog.dismiss()
                     MainActivity.application.users.remove(user!!.getUserId())
                     File(user!!.avatarPath).delete()
+                    (activity as MainActivity).saveAppState()
                     (activity as MainActivity).onBackPressed()
                 }
                 dialog.show()
@@ -101,6 +101,7 @@ class UserConstructor : Fragment() {
                     AppUtils().saveTempImageAsUserPic(File(user!!.avatarPath).name, context)
                     user!!.name = userNameField.text.toString()
                 }
+                (activity as MainActivity).saveAppState()
                 (activity as MainActivity).onBackPressed()
             }
             else AppUtils().showSnackBar(fragmentView, "Заполните все параметры пользователя!")
