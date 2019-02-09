@@ -11,6 +11,7 @@ import android.widget.*
 import com.toolittlespot.coffeemachinecleancounter.R
 import com.toolittlespot.coffeemachinecleancounter.Views
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.AppUtils
+import com.toolittlespot.coffeemachinecleancounter.businesslogic.ApplicationState
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.dialogs.Dialogs
 import com.toolittlespot.coffeemachinecleancounter.uilogic.MainActivity
 
@@ -49,7 +50,7 @@ class Settings : Fragment() {
             val dialog = Dialogs.createResetDialog(this.activity!!)
             dialog.findViewById<Button>(R.id.positive_dialog_btn).setOnClickListener {
                 dialog.dismiss()
-                (activity as MainActivity).removeAppState()
+                ApplicationState.removeAppState(activity as MainActivity)
             }
             dialog.show()
         }
@@ -57,8 +58,9 @@ class Settings : Fragment() {
 
     private fun configUsesBeforeClean() {
         usesBeforeClean = fragmentView.findViewById(R.id.uses_before_clean_amount_setter)
-        if (MainActivity.application.maxUsesAmount > 0){
-            usesBeforeClean.setText(MainActivity.application.maxUsesAmount.toString())
+
+        if (MainActivity.application.coffeeMachineState.getMaxUseAmount() != 0){
+            usesBeforeClean.setText(MainActivity.application.coffeeMachineState.getMaxUseAmount().toString())
         }
     }
 
@@ -78,12 +80,14 @@ class Settings : Fragment() {
     }
 
     private fun saveSettings() {
-        MainActivity.application.maxUsesAmount = Integer.valueOf(usesBeforeClean.text.toString())
-        (activity as MainActivity).saveAppState()
+        val amount = Integer.valueOf(usesBeforeClean.text.toString())
+        MainActivity.application.coffeeMachineState.setMaxUseAmount(amount, activity as MainActivity)
     }
 
     private fun isFieldsFilled(): Boolean {
-        return ! TextUtils.isEmpty(usesBeforeClean.text) && MainActivity.application.users.size > 0
+        return ! (TextUtils.isEmpty(usesBeforeClean.text)
+                || MainActivity.application.usersPanel.getUsers().isEmpty()
+                || Integer.valueOf(usesBeforeClean.text.toString()) < 1)
     }
 
     private fun configLanguageBtn() {
@@ -96,7 +100,7 @@ class Settings : Fragment() {
     private fun fillUsersGrid() {
         val usersGrid = fragmentView.findViewById<GridLayout>(R.id.users)
         val size = AppUtils().getDevicePixelWidth(activity as MainActivity).widthPixels / 3
-        val usersList = MainActivity.application.users.values
+        val usersList = MainActivity.application.usersPanel.getUsers()
         usersList.forEach {user->
             val userView = Views.createUserView(user, size, context)
             usersGrid.addView(userView, usersGrid.childCount - 1)

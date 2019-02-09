@@ -1,6 +1,5 @@
 package com.toolittlespot.coffeemachinecleancounter.uilogic
 
-import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
@@ -10,10 +9,9 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.Window
 import android.view.WindowManager
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.toolittlespot.coffeemachinecleancounter.R
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.Application
+import com.toolittlespot.coffeemachinecleancounter.businesslogic.ApplicationState
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.language.Dict
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.language.LangMap
 import com.toolittlespot.coffeemachinecleancounter.uilogic.fragments.History
@@ -42,7 +40,7 @@ class MainActivity : AppCompatActivity(){
     }
 
     private fun startApplication() {
-        val appState = loadAppState()
+        val appState = ApplicationState.loadAppState(this)
         if (appState != null) {
             MainActivity.application = appState
             changeMainLayout(MainPage())
@@ -76,7 +74,7 @@ class MainActivity : AppCompatActivity(){
         this.setSupportActionBar(toolbar)
     }
 
-    fun setupViewPager(viewPager: ViewPager) {
+    private fun setupViewPager(viewPager: ViewPager) {
         val adapter = SectionPageAdapter(supportFragmentManager)
         adapter.addFragment(Statistics(), LangMap().getDict(Dict.STATISTICS))
         adapter.addFragment(History(), LangMap().getDict(Dict.HISTORY))
@@ -106,26 +104,5 @@ class MainActivity : AppCompatActivity(){
 
         val tabLayout: TabLayout = findViewById(R.id.tabs)
         tabLayout.setupWithViewPager(viewPager)
-    }
-
-    fun saveAppState(){
-        val prefs = getSharedPreferences("saved_state", Context.MODE_PRIVATE)
-        val editor = prefs.edit()
-        val json = Gson().toJson(MainActivity.application)
-        editor.putString("application", json)
-        editor.apply()
-    }
-
-    private fun loadAppState() :Application?{
-        val prefs = getSharedPreferences("saved_state", Context.MODE_PRIVATE)
-        val json = prefs.getString("application", null)
-        val type = object: TypeToken<Application>() {}.type
-        return Gson().fromJson(json, type)
-    }
-
-    fun removeAppState(){
-        getSharedPreferences("saved_state", Context.MODE_PRIVATE).edit().clear().apply()
-        finish()
-        startActivity(intent)
     }
 }

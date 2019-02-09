@@ -6,8 +6,7 @@ import android.view.View
 import android.widget.GridLayout
 import android.widget.ImageButton
 import android.widget.ImageView
-import com.toolittlespot.coffeemachinecleancounter.uilogic.views.User
-import java.io.File
+import com.toolittlespot.coffeemachinecleancounter.businesslogic.application.User
 
 class Views {
     companion object {

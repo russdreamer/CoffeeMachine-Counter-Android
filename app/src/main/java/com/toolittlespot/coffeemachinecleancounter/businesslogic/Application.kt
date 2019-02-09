@@ -1,8 +1,9 @@
 package com.toolittlespot.coffeemachinecleancounter.businesslogic
 
-import com.toolittlespot.coffeemachinecleancounter.uilogic.views.User
+import com.toolittlespot.coffeemachinecleancounter.businesslogic.application.*
 
 class Application {
-    var users = hashMapOf<Long, User>()
-    var maxUsesAmount: Int = 0
+    var usersPanel: UsersPanel = UsersPanel()
+    var coffeeMachineState: CoffeeMachineState = CoffeeMachineState(0)
+    var history: HistoryImpl = HistoryImpl()
 }

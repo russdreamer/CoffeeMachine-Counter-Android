@@ -30,21 +30,7 @@
                         tools:layout_conversion_absoluteWidth="411dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-                    <ImageButton
-                            android:text="+"
-                            android:layout_height="130dp" android:id="@+id/add_user_btn" android:textSize="36sp"
-                            android:textStyle="bold" android:textAllCaps="false"
-                            android:layout_width="130dp" android:src="@drawable/avatar_1" android:scaleType="centerCrop"
-                    />
-                    <ImageButton
-                            android:text="+"
-                            android:layout_height="130dp" android:id="@+id/add_user_btn2" android:textSize="36sp"
-                            android:textStyle="bold" android:textAllCaps="false"
-                            android:layout_width="130dp" android:scaleType="centerCrop"
-                            android:adjustViewBounds="false" android:cropToPadding="false"
-                            android:src="@drawable/avatar_2"/>
-                </GridLayout>
+                        app:layout_constraintTop_toTopOf="parent"/>
             </android.support.constraint.ConstraintLayout>
         </LinearLayout>
     </ScrollView>

@@ -22,7 +22,7 @@ import com.toolittlespot.coffeemachinecleancounter.R
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.AppUtils
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.dialogs.Dialogs
 import com.toolittlespot.coffeemachinecleancounter.uilogic.MainActivity
-import com.toolittlespot.coffeemachinecleancounter.uilogic.views.User
+import com.toolittlespot.coffeemachinecleancounter.businesslogic.application.User
 import java.io.File
 import java.util.*
 
@@ -76,9 +76,7 @@ class UserConstructor : Fragment() {
                 val dialog = Dialogs.createDeleteUserDialog(this.context!!)
                 dialog.findViewById<Button>(R.id.positive_dialog_btn).setOnClickListener {
                     dialog.dismiss()
-                    MainActivity.application.users.remove(user!!.getUserId())
-                    File(user!!.avatarPath).delete()
-                    (activity as MainActivity).saveAppState()
+                    MainActivity.application.usersPanel.removeUser(user!!, activity as MainActivity)
                     (activity as MainActivity).onBackPressed()
                 }
                 dialog.show()
@@ -94,24 +92,17 @@ class UserConstructor : Fragment() {
         fragmentView.findViewById<Button>(R.id.save_user_btn).setOnClickListener {
             if (isFieldsFilled()) {
                 if (user == null){
-                    val newUser = createUser()
-                    MainActivity.application.users[newUser.getUserId()] = newUser
+                    val userNAme = userNameField.text.toString()
+                    MainActivity.application.usersPanel.addUser(userNAme, activity!!)
                 }
                 else{
-                    AppUtils().saveTempImageAsUserPic(File(user!!.avatarPath).name, context)
-                    user!!.name = userNameField.text.toString()
+                    val userName = userNameField.text.toString()
+                    MainActivity.application.usersPanel.updateUser(user!!, userName, activity!!)
                 }
-                (activity as MainActivity).saveAppState()
                 (activity as MainActivity).onBackPressed()
             }
             else AppUtils().showSnackBar(fragmentView, "Заполните все параметры пользователя!")
         }
-    }
-
-    private fun createUser(): User {
-        val imageName = Date().time.toString()
-        val imageFile = AppUtils().saveTempImageAsUserPic(imageName, context)
-        return User(userNameField.text.toString(), imageFile.absolutePath)
     }
 
     private fun isFieldsFilled(): Boolean {
