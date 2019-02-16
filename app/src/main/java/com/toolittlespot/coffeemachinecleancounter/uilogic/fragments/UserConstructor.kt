@@ -24,7 +24,6 @@ import com.toolittlespot.coffeemachinecleancounter.businesslogic.dialogs.Dialogs
 import com.toolittlespot.coffeemachinecleancounter.uilogic.MainActivity
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.application.User
 import java.io.File
-import java.util.*
 
 class UserConstructor : Fragment() {
     private lateinit var fragmentView: View
@@ -73,10 +72,10 @@ class UserConstructor : Fragment() {
         }
         else {
             deleteBtn.setOnClickListener{
-                val dialog = Dialogs.createDeleteUserDialog(this.context!!)
+                val dialog = Dialogs.createBasicDialog(context!!, "Are you sure?")
                 dialog.findViewById<Button>(R.id.positive_dialog_btn).setOnClickListener {
                     dialog.dismiss()
-                    MainActivity.application.usersPanel.removeUser(user!!, activity as MainActivity)
+                    MainActivity.application.removeUser(user!!, activity as MainActivity)
                     (activity as MainActivity).onBackPressed()
                 }
                 dialog.show()
@@ -93,11 +92,11 @@ class UserConstructor : Fragment() {
             if (isFieldsFilled()) {
                 if (user == null){
                     val userNAme = userNameField.text.toString()
-                    MainActivity.application.usersPanel.addUser(userNAme, activity!!)
+                    MainActivity.application.addUser(userNAme, activity!!)
                 }
                 else{
                     val userName = userNameField.text.toString()
-                    MainActivity.application.usersPanel.updateUser(user!!, userName, activity!!)
+                    MainActivity.application.updateUser(user!!, userName, activity!!)
                 }
                 (activity as MainActivity).onBackPressed()
             }

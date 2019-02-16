@@ -3,7 +3,7 @@ package com.toolittlespot.coffeemachinecleancounter.businesslogic.application
 import java.util.HashMap
 import java.util.stream.Collectors
 
-class StatisticsMenuItem(private val history: History<*>) {
+class StatisticsMenuItem(private val history: HistoryImpl) {
 
     val content: String
         get() = coffeeMachineUseAmount + coffeeMachineCleanAmount

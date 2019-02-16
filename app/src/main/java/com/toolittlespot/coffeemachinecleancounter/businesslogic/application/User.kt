@@ -13,4 +13,8 @@ class User(var name: String, val avatarPath: String) {
     fun getId(): Long{
         return this.id
     }
+
+    override fun toString(): String {
+        return name
+    }
 }

@@ -1,6 +1,6 @@
 package com.toolittlespot.coffeemachinecleancounter.businesslogic.application
 
-class HistoryMenuItem(private val history: History<Action>) {
+class HistoryMenuItem(private val history: HistoryImpl) {
 
     val content: String
         get() {

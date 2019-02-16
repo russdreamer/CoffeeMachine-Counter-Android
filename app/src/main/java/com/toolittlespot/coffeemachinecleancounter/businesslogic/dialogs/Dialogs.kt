@@ -10,17 +10,9 @@ import com.toolittlespot.coffeemachinecleancounter.R
 class Dialogs {
     companion object {
 
-        fun createResetDialog(context: Context): Dialog {
+        fun createBasicDialog(context: Context, message: String): Dialog {
             val dialog = createdDialog(context)
-            createTextView(dialog, "Are you sure you want to reset all application data??")
-            createPositiveButton("YES", dialog)
-            createNegativeButton("NO", dialog)
-            return dialog
-        }
-
-        fun createDeleteUserDialog(context: Context): Dialog {
-            val dialog = createdDialog(context)
-            createTextView(dialog, "Are you sure you want to delete this user?")
+            createTextView(dialog, message)
             createPositiveButton("YES", dialog)
             createNegativeButton("NO", dialog)
             return dialog

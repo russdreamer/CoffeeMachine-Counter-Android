@@ -10,6 +10,8 @@ import android.widget.Button
 import android.widget.ImageButton
 import com.toolittlespot.coffeemachinecleancounter.R
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.AppUtils
+import com.toolittlespot.coffeemachinecleancounter.businesslogic.ApplicationState
+import com.toolittlespot.coffeemachinecleancounter.businesslogic.dialogs.Dialogs
 import com.toolittlespot.coffeemachinecleancounter.uilogic.MainActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -42,14 +44,14 @@ class MainPage : Fragment() {
     private fun configCleanBtn() {
         cleanBtn = fragmentView.findViewById(R.id.clean_button)
         cleanBtn.setOnClickListener {
-            MainActivity.application.coffeeMachineState.clean(activity!!)
+            MainActivity.application.cleanCoffeeMachine(activity!!)
             useBtn.isEnabled = true
             AppUtils().showSnackBar(fragmentView, "Cleaned!")
         }
     }
 
     private fun checkIfClean() {
-        if (! MainActivity.application.coffeeMachineState.isClean) {
+        if (! MainActivity.application.isMachineClean()) {
             useBtn.isEnabled = false
         }
     }
@@ -77,7 +79,7 @@ class MainPage : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        if (MainActivity.application.usersPanel.getUsers().isEmpty())
+        if (MainActivity.application.getUsers().isEmpty())
             (activity as MainActivity).changeMainLayout(Settings(), false)
     }
 }

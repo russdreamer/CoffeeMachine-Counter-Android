@@ -49,13 +49,13 @@ class UsingPersonChooser : Fragment() {
     private fun fillUsersGrid() {
         val usersGrid = fragmentView.findViewById<GridLayout>(R.id.users)
         val size = AppUtils().getDevicePixelWidth(activity as MainActivity).widthPixels / 2
-        val usersList = MainActivity.application.usersPanel.getUsers()
+        val usersList = MainActivity.application.getUsers()
         usersList.forEach {user->
             val userView = Views.createUserView(user, size, context)
             usersGrid.addView(userView, usersGrid.childCount - 1)
 
             userView.setOnClickListener{
-                MainActivity.application.coffeeMachineState.use(activity!!)
+                MainActivity.application.useCoffeeMachine(user, activity!!)
                 (activity as MainActivity).onBackPressed()
             }
         }

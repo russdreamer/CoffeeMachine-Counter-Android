@@ -9,9 +9,11 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.Window
 import android.view.WindowManager
+import android.widget.Button
 import com.toolittlespot.coffeemachinecleancounter.R
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.Application
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.ApplicationState
+import com.toolittlespot.coffeemachinecleancounter.businesslogic.dialogs.Dialogs
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.language.Dict
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.language.LangMap
 import com.toolittlespot.coffeemachinecleancounter.uilogic.fragments.History
@@ -67,6 +69,7 @@ class MainActivity : AppCompatActivity(){
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main, menu)
         createTabMenu()
+
         return true
     }
 
@@ -104,5 +107,14 @@ class MainActivity : AppCompatActivity(){
 
         val tabLayout: TabLayout = findViewById(R.id.tabs)
         tabLayout.setupWithViewPager(viewPager)
+
+        findViewById<Button>(R.id.cleanHistoryButton).setOnClickListener {
+            val dialog = Dialogs.createBasicDialog(this, "Are you sure?")
+            dialog.findViewById<Button>(R.id.positive_dialog_btn).setOnClickListener {
+                dialog.dismiss()
+                MainActivity.application.clearHistory(this)
+            }
+            dialog.show()
+        }
     }
 }

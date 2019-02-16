@@ -47,7 +47,7 @@ class Settings : Fragment() {
     private fun configResetBtn() {
         resetButton = fragmentView.findViewById(R.id.reset_btn)
         resetButton.setOnClickListener {
-            val dialog = Dialogs.createResetDialog(this.activity!!)
+            val dialog = Dialogs.createBasicDialog(context!!, "Are you sure?")
             dialog.findViewById<Button>(R.id.positive_dialog_btn).setOnClickListener {
                 dialog.dismiss()
                 ApplicationState.removeAppState(activity as MainActivity)
@@ -59,8 +59,8 @@ class Settings : Fragment() {
     private fun configUsesBeforeClean() {
         usesBeforeClean = fragmentView.findViewById(R.id.uses_before_clean_amount_setter)
 
-        if (MainActivity.application.coffeeMachineState.getMaxUseAmount() != 0){
-            usesBeforeClean.setText(MainActivity.application.coffeeMachineState.getMaxUseAmount().toString())
+        if (MainActivity.application.getMaxUseAmountMachine() != 0){
+            usesBeforeClean.setText(MainActivity.application.getMaxUseAmountMachine().toString())
         }
     }
 
@@ -81,12 +81,12 @@ class Settings : Fragment() {
 
     private fun saveSettings() {
         val amount = Integer.valueOf(usesBeforeClean.text.toString())
-        MainActivity.application.coffeeMachineState.setMaxUseAmount(amount, activity as MainActivity)
+        MainActivity.application.setMaxUseAmountMachine(amount, activity as MainActivity)
     }
 
     private fun isFieldsFilled(): Boolean {
         return ! (TextUtils.isEmpty(usesBeforeClean.text)
-                || MainActivity.application.usersPanel.getUsers().isEmpty()
+                || MainActivity.application.getUsers().isEmpty()
                 || Integer.valueOf(usesBeforeClean.text.toString()) < 1)
     }
 
@@ -100,7 +100,7 @@ class Settings : Fragment() {
     private fun fillUsersGrid() {
         val usersGrid = fragmentView.findViewById<GridLayout>(R.id.users)
         val size = AppUtils().getDevicePixelWidth(activity as MainActivity).widthPixels / 3
-        val usersList = MainActivity.application.usersPanel.getUsers()
+        val usersList = MainActivity.application.getUsers()
         usersList.forEach {user->
             val userView = Views.createUserView(user, size, context)
             usersGrid.addView(userView, usersGrid.childCount - 1)
