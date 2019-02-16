@@ -14,7 +14,6 @@ import com.toolittlespot.coffeemachinecleancounter.uilogic.MainActivity
 class History : Fragment() {
     companion object {
         lateinit var adapter: HistoryAdapter
-        lateinit var list: ListView
     }
     private lateinit var fragmentView: View
 
@@ -29,7 +28,7 @@ class History : Fragment() {
     }
 
     private fun configList() {
-        list = fragmentView.findViewById(R.id.history_list)
+        val list = fragmentView.findViewById<ListView>(R.id.history_list)
 
         adapter = HistoryAdapter(
             context!!,

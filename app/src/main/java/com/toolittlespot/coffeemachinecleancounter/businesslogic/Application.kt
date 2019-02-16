@@ -51,7 +51,6 @@ class Application {
         coffeeMachineState.use()
         history.addAction(Action(user, ActionType.USE, Date()))
         History.adapter.notifyDataSetChanged()
-        History.list.refreshDrawableState()
         ApplicationState.saveAppState(activity)
     }
 
