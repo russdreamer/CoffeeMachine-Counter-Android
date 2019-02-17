@@ -22,7 +22,6 @@ class History : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         fragmentView = inflater.inflate(R.layout.fragment_history, container, false)
-        MainActivity.application.getHistory()
         configList()
         return fragmentView
     }
