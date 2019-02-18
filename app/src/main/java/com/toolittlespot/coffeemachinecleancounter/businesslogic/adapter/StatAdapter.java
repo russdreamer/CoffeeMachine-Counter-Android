@@ -149,7 +149,7 @@ public class StatAdapter extends BaseAdapter implements Filterable, ThemedSpinne
         }
 
         long userID = stat.getUser().getId();
-        User user = MainActivity.application.getUser(userID);
+        User user = MainActivity.app.getUser(userID);
 
         ImageView avatarView = view.findViewById(R.id.avatar_column);
         TextView nameView = view.findViewById(R.id.name_column);

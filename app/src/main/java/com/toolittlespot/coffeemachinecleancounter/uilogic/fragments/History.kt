@@ -7,8 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
+import android.widget.TextView
 import com.toolittlespot.coffeemachinecleancounter.R
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.adapter.HistoryAdapter
+import com.toolittlespot.coffeemachinecleancounter.businesslogic.language.Dict
 import com.toolittlespot.coffeemachinecleancounter.uilogic.MainActivity
 
 class History : Fragment() {
@@ -22,8 +24,20 @@ class History : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         fragmentView = inflater.inflate(R.layout.fragment_history, container, false)
-        configList()
+        configViews()
         return fragmentView
+    }
+
+    private fun configViews() {
+        configList()
+        configTitles()
+    }
+
+    private fun configTitles() {
+        fragmentView.findViewById<TextView>(R.id.time_column_txt).text = MainActivity.app.getDict(Dict.TIME)
+        fragmentView.findViewById<TextView>(R.id.avatar_column_txt).text = MainActivity.app.getDict(Dict.AVATAR)
+        fragmentView.findViewById<TextView>(R.id.name_column_txt).text = MainActivity.app.getDict(Dict.NAME)
+        fragmentView.findViewById<TextView>(R.id.action_column_txt).text = MainActivity.app.getDict(Dict.ACTION)
     }
 
     private fun configList() {
@@ -31,7 +45,7 @@ class History : Fragment() {
 
         adapter = HistoryAdapter(
             context!!,
-            MainActivity.application.getHistory(),
+            MainActivity.app.getHistory(),
             R.layout.history_item
             )
 

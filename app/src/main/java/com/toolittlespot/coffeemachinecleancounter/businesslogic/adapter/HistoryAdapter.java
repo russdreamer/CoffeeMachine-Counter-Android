@@ -147,7 +147,7 @@ public class HistoryAdapter extends BaseAdapter implements Filterable, ThemedSpi
         }
 
         long userId = action.getUser().getId();
-        User user  = MainActivity.application.getUser(userId);
+        User user  = MainActivity.app.getUser(userId);
 
         TextView timeView = view.findViewById(R.id.time_column);
         ImageView avatarView = view.findViewById(R.id.avatar_column);

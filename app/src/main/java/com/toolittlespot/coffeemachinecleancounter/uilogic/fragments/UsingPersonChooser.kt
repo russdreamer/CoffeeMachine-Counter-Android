@@ -9,10 +9,12 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.GridLayout
 import android.widget.ScrollView
+import android.widget.TextView
 
 import com.toolittlespot.coffeemachinecleancounter.R
 import com.toolittlespot.coffeemachinecleancounter.Views
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.AppUtils
+import com.toolittlespot.coffeemachinecleancounter.businesslogic.language.Dict
 import com.toolittlespot.coffeemachinecleancounter.uilogic.MainActivity
 
 class UsingPersonChooser : Fragment() {
@@ -27,10 +29,15 @@ class UsingPersonChooser : Fragment() {
 
         fragmentView =  inflater.inflate(R.layout.fragment_using_person_chooser, container, false)
         setDialogSize()
+        configTextViews()
         fillUsersGrid()
         configAddUserBtn()
 
         return fragmentView
+    }
+
+    private fun configTextViews() {
+        fragmentView.findViewById<TextView>(R.id.who_use_txt).text = MainActivity.app.getDict(Dict.WHO_USE)
     }
 
     private fun configAddUserBtn() {
@@ -49,13 +56,13 @@ class UsingPersonChooser : Fragment() {
     private fun fillUsersGrid() {
         val usersGrid = fragmentView.findViewById<GridLayout>(R.id.users)
         val size = AppUtils().getDevicePixelWidth(activity as MainActivity).widthPixels / 2
-        val usersList = MainActivity.application.getUsers()
+        val usersList = MainActivity.app.getUsers()
         usersList.forEach {user->
             val userView = Views.createUserView(user, size, context)
             usersGrid.addView(userView, usersGrid.childCount - 1)
 
             userView.setOnClickListener{
-                MainActivity.application.useCoffeeMachine(user, activity!!)
+                MainActivity.app.useCoffeeMachine(user, activity!!)
                 (activity as MainActivity).onBackPressed()
             }
         }

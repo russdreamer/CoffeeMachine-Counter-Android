@@ -17,7 +17,7 @@ class StatListGenerator {
     }
 
     private fun fillStatisticMap() {
-        val logList = MainActivity.application.getHistory()
+        val logList = MainActivity.app.getHistory()
         logList.forEach{
             val userID = it.user.getId()
             if (it.type == ActionType.USE)
@@ -28,7 +28,7 @@ class StatListGenerator {
     }
 
     private fun createStatisticMap(){
-        val userList = MainActivity.application.getUsers()
+        val userList = MainActivity.app.getUsers()
         userList.forEach{
             statMap[it.getId()] = Statistics.StatisticPOJO(it)
         }

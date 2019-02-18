@@ -15,7 +15,6 @@ import com.toolittlespot.coffeemachinecleancounter.businesslogic.Application
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.ApplicationState
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.dialogs.Dialogs
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.language.Dict
-import com.toolittlespot.coffeemachinecleancounter.businesslogic.language.LangMap
 import com.toolittlespot.coffeemachinecleancounter.uilogic.fragments.History
 import com.toolittlespot.coffeemachinecleancounter.uilogic.fragments.MainPage
 import com.toolittlespot.coffeemachinecleancounter.uilogic.fragments.Settings
@@ -29,7 +28,7 @@ class MainActivity : AppCompatActivity(){
     private lateinit var viewPager: ViewPager
 
     companion object {
-        lateinit var application: Application
+        lateinit var app: Application
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,10 +43,10 @@ class MainActivity : AppCompatActivity(){
     private fun startApplication() {
         val appState = ApplicationState.loadAppState(this)
         if (appState != null) {
-            MainActivity.application = appState
+            MainActivity.app = appState
             changeMainLayout(MainPage())
         } else {
-            MainActivity.application = Application()
+            MainActivity.app = Application()
             changeMainLayout(Settings(), false)
         }
     }
@@ -79,8 +78,8 @@ class MainActivity : AppCompatActivity(){
 
     private fun setupViewPager(viewPager: ViewPager) {
         val adapter = SectionPageAdapter(supportFragmentManager)
-        adapter.addFragment(Statistics(), LangMap().getDict(Dict.STATISTICS))
-        adapter.addFragment(History(), LangMap().getDict(Dict.HISTORY))
+        adapter.addFragment(Statistics(), app.getDict(Dict.STATISTICS))
+        adapter.addFragment(History(), app.getDict(Dict.HISTORY))
 
         viewPager.adapter = adapter
     }
@@ -100,7 +99,7 @@ class MainActivity : AppCompatActivity(){
         transaction.commit()
     }
 
-    private fun createTabMenu() {
+    fun createTabMenu() {
         pageAdapter = SectionPageAdapter(supportFragmentManager)
         viewPager = findViewById(R.id.container)
         setupViewPager(viewPager)
@@ -108,11 +107,13 @@ class MainActivity : AppCompatActivity(){
         val tabLayout: TabLayout = findViewById(R.id.tabs)
         tabLayout.setupWithViewPager(viewPager)
 
-        findViewById<Button>(R.id.cleanHistoryButton).setOnClickListener {
-            val dialog = Dialogs.createBasicDialog(this, "Are you sure?")
+        val cleanBtn = findViewById<Button>(R.id.cleanHistoryButton)
+        cleanBtn.text = app.getDict(Dict.CLEAN_HISTORY)
+        cleanBtn.setOnClickListener {
+            val dialog = Dialogs.createBasicDialog(this, app.getDict(Dict.ARE_YOU_SURE))
             dialog.findViewById<Button>(R.id.positive_dialog_btn).setOnClickListener {
                 dialog.dismiss()
-                MainActivity.application.clearHistory(this)
+                MainActivity.app.clearHistory(this)
             }
             dialog.show()
         }

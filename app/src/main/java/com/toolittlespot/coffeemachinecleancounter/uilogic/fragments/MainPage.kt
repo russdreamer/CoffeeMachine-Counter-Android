@@ -10,8 +10,7 @@ import android.widget.Button
 import android.widget.ImageButton
 import com.toolittlespot.coffeemachinecleancounter.R
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.AppUtils
-import com.toolittlespot.coffeemachinecleancounter.businesslogic.ApplicationState
-import com.toolittlespot.coffeemachinecleancounter.businesslogic.dialogs.Dialogs
+import com.toolittlespot.coffeemachinecleancounter.businesslogic.language.Dict
 import com.toolittlespot.coffeemachinecleancounter.uilogic.MainActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -43,15 +42,16 @@ class MainPage : Fragment() {
 
     private fun configCleanBtn() {
         cleanBtn = fragmentView.findViewById(R.id.clean_button)
+        cleanBtn.text = MainActivity.app.getDict(Dict.CLEAN)
         cleanBtn.setOnClickListener {
-            MainActivity.application.cleanCoffeeMachine(activity!!)
+            MainActivity.app.cleanCoffeeMachine(activity!!)
             useBtn.isEnabled = true
-            AppUtils().showSnackBar(fragmentView, "Cleaned!")
+            AppUtils().showSnackBar(fragmentView, MainActivity.app.getDict(Dict.CLEAN))
         }
     }
 
     private fun checkIfClean() {
-        if (! MainActivity.application.isMachineClean()) {
+        if (! MainActivity.app.isMachineClean()) {
             useBtn.isEnabled = false
         }
     }
@@ -65,6 +65,7 @@ class MainPage : Fragment() {
 
     private fun configUseBtn() {
         useBtn = fragmentView.findViewById(R.id.use_button)
+        useBtn.text = MainActivity.app.getDict(Dict.USE)
         useBtn.setOnClickListener {
             (activity as MainActivity).changeMainLayout(UsingPersonChooser())
         }
@@ -79,7 +80,7 @@ class MainPage : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        if (MainActivity.application.getUsers().isEmpty())
+        if (MainActivity.app.getUsers().isEmpty())
             (activity as MainActivity).changeMainLayout(Settings(), false)
     }
 }

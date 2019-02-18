@@ -12,10 +12,7 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.ImageView
+import android.widget.*
 import com.toolittlespot.coffeemachinecleancounter.CAPTURE_IMAGE
 import com.toolittlespot.coffeemachinecleancounter.PICK_IMAGE
 import com.toolittlespot.coffeemachinecleancounter.R
@@ -23,6 +20,7 @@ import com.toolittlespot.coffeemachinecleancounter.businesslogic.AppUtils
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.dialogs.Dialogs
 import com.toolittlespot.coffeemachinecleancounter.uilogic.MainActivity
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.application.User
+import com.toolittlespot.coffeemachinecleancounter.businesslogic.language.Dict
 import java.io.File
 
 class UserConstructor : Fragment() {
@@ -61,8 +59,19 @@ class UserConstructor : Fragment() {
         configGalleryBtn()
         configSaveBtn()
         configDeleteBtn()
+        configTextViews()
 
         configUserNameTxt()
+    }
+
+    private fun configTextViews() {
+        fragmentView.findViewById<TextView>(R.id.user_name_txt).hint = MainActivity.app.getDict(Dict.NAME)
+        fragmentView.findViewById<TextView>(R.id.change_photo_txt).text = MainActivity.app.getDict(Dict.SELECT_USER_IMAGE)
+        fragmentView.findViewById<TextView>(R.id.gallery_txt).text = MainActivity.app.getDict(Dict.GALLERY)
+        fragmentView.findViewById<TextView>(R.id.camera_txt).text = MainActivity.app.getDict(Dict.CAMERA)
+        fragmentView.findViewById<TextView>(R.id.collection_txt).text = MainActivity.app.getDict(Dict.COLLECTION)
+        fragmentView.findViewById<TextView>(R.id.save_user_btn).text = MainActivity.app.getDict(Dict.SAVE)
+        fragmentView.findViewById<TextView>(R.id.delete_user_btn).text = MainActivity.app.getDict(Dict.DELETE)
     }
 
     private fun configDeleteBtn() {
@@ -72,10 +81,10 @@ class UserConstructor : Fragment() {
         }
         else {
             deleteBtn.setOnClickListener{
-                val dialog = Dialogs.createBasicDialog(context!!, "Are you sure?")
+                val dialog = Dialogs.createBasicDialog(context!!, MainActivity.app.getDict(Dict.ARE_YOU_SURE))
                 dialog.findViewById<Button>(R.id.positive_dialog_btn).setOnClickListener {
                     dialog.dismiss()
-                    MainActivity.application.removeUser(user!!, activity as MainActivity)
+                    MainActivity.app.removeUser(user!!, activity as MainActivity)
                     (activity as MainActivity).onBackPressed()
                 }
                 dialog.show()
@@ -92,15 +101,16 @@ class UserConstructor : Fragment() {
             if (isFieldsFilled()) {
                 if (user == null){
                     val userNAme = userNameField.text.toString()
-                    MainActivity.application.addUser(userNAme, activity!!)
+                    MainActivity.app.addUser(userNAme, activity!!)
                 }
                 else{
                     val userName = userNameField.text.toString()
-                    MainActivity.application.updateUser(user!!, userName, activity!!)
+                    MainActivity.app.updateUser(user!!, userName, activity!!)
+                    (activity as MainActivity).createTabMenu()
                 }
                 (activity as MainActivity).onBackPressed()
             }
-            else AppUtils().showSnackBar(fragmentView, "Заполните все параметры пользователя!")
+            else AppUtils().showSnackBar(fragmentView, MainActivity.app.getDict(Dict.FIELD_NOT_FILLED))
         }
     }
 

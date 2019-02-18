@@ -12,7 +12,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/back_btn" tools:layout_editor_absoluteX="0dp"
             app:layout_constraintVertical_bias="1.0">
-        <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                       android:orientation="vertical" android:id="@+id/linearLayout2">
             <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
@@ -35,7 +35,6 @@
         </LinearLayout>
     </ScrollView>
     <Button
-            android:text="CANCEL"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/back_btn"

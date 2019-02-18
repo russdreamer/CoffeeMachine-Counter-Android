@@ -4,18 +4,18 @@ import com.toolittlespot.coffeemachinecleancounter.businesslogic.AppUtils
 
 
 class LangMap {
-    var currentDict = HashMap<String, String>()
+    private var currentDict = HashMap<String, String>()
     private var dictLoaded: Boolean = false
 
     /**
      * getting language dictionary with  user language
      * @return language dictionary
      */
-    fun getDict(): Map<String, String>{
+    private fun getDict(): Map<String, String>{
         if (!dictLoaded) {
             determinateUserLanguage()
         }
-        return currentDict;
+        return currentDict
     }
 
     /**

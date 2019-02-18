@@ -6,6 +6,8 @@ import android.view.Window
 import android.widget.Button
 import android.widget.TextView
 import com.toolittlespot.coffeemachinecleancounter.R
+import com.toolittlespot.coffeemachinecleancounter.businesslogic.language.Dict
+import com.toolittlespot.coffeemachinecleancounter.uilogic.MainActivity
 
 class Dialogs {
     companion object {
@@ -13,8 +15,8 @@ class Dialogs {
         fun createBasicDialog(context: Context, message: String): Dialog {
             val dialog = createdDialog(context)
             createTextView(dialog, message)
-            createPositiveButton("YES", dialog)
-            createNegativeButton("NO", dialog)
+            createPositiveButton(MainActivity.app.getDict(Dict.YES), dialog)
+            createNegativeButton(MainActivity.app.getDict(Dict.NO), dialog)
             return dialog
         }
 

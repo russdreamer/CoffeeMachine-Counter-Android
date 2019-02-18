@@ -3,6 +3,8 @@ package com.toolittlespot.coffeemachinecleancounter.businesslogic
 import android.app.Activity
 import android.content.Context
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.application.*
+import com.toolittlespot.coffeemachinecleancounter.businesslogic.language.Dict
+import com.toolittlespot.coffeemachinecleancounter.businesslogic.language.LangMap
 import com.toolittlespot.coffeemachinecleancounter.uilogic.fragments.History
 import com.toolittlespot.coffeemachinecleancounter.uilogic.fragments.Statistics
 import java.io.File
@@ -12,6 +14,15 @@ class Application {
     private var usersPanel: UsersPanel = UsersPanel()
     private var coffeeMachineState: CoffeeMachineState = CoffeeMachineState(0)
     private var history: HistoryImpl = HistoryImpl()
+    private var dict: LangMap = LangMap()
+
+    fun getDict(word: Dict): String {
+        return dict.getDict(word)
+    }
+
+    fun changeLanguage(language: String){
+        dict.changeLanguage(language)
+    }
 
     fun getUsers(): List<User> {
         return usersPanel.getUsers()

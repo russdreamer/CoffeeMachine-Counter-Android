@@ -17,6 +17,7 @@ import android.widget.ImageView
 import com.toolittlespot.coffeemachinecleancounter.R
 import com.toolittlespot.coffeemachinecleancounter.Views
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.AppUtils
+import com.toolittlespot.coffeemachinecleancounter.businesslogic.language.Dict
 import com.toolittlespot.coffeemachinecleancounter.uilogic.MainActivity
 
 
@@ -36,7 +37,9 @@ class AvatarGallery : Fragment() {
     }
 
     private fun setBackBtnListener() {
-        fragmentView.findViewById<Button>(R.id.back_btn)?.setOnClickListener{
+        val backBtn = fragmentView.findViewById<Button>(R.id.back_btn)
+        backBtn.text = MainActivity.app.getDict(Dict.CLEAN)
+        backBtn.setOnClickListener{
             (activity as MainActivity).onBackPressed()
         }
     }

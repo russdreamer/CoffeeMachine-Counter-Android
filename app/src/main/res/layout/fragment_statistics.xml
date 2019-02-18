@@ -7,7 +7,6 @@
                                              tools:context=".uilogic.fragments.Statistics"
                                              android:id="@+id/relativeLayout2">
     <TextView
-            android:text="Top Coffee Maniacs:"
             android:layout_width="0dp"
             android:layout_height="wrap_content" android:id="@+id/coffee_maniac_rank"
             app:layout_constraintTop_toTopOf="parent"
@@ -27,7 +26,6 @@
             android:background="?android:attr/listDivider"
             app:layout_constraintTop_toBottomOf="@+id/coffee_maniac_rank_list"/>
     <TextView
-            android:text="Top Janitors:"
             android:layout_width="0dp"
             android:layout_height="wrap_content" android:id="@+id/janitor_rank"
             app:layout_constraintStart_toStartOf="parent" android:textSize="24sp" android:textAlignment="center"
