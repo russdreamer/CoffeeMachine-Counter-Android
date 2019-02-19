@@ -1,6 +1,7 @@
 package com.toolittlespot.coffeemachinecleancounter.uilogic.fragments
 
 
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -62,6 +63,7 @@ class UsingPersonChooser : Fragment() {
             usersGrid.addView(userView, usersGrid.childCount - 1)
 
             userView.setOnClickListener{
+                MediaPlayer.create(context, R.raw.use).start()
                 MainActivity.app.useCoffeeMachine(user, activity!!)
                 (activity as MainActivity).onBackPressed()
             }

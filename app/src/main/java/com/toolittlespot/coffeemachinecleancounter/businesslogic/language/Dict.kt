@@ -117,6 +117,10 @@ enum class Dict(val russian: String, val english: String) {
         "Кто использует?",
         "Who is using?"
     ),
+    COFFEE_MACHINE_CLEAN(
+        "Кофемашина очищена!",
+        "Coffee machine is cleared!"
+    ),
     ;
 
 }
