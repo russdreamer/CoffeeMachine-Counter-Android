@@ -88,9 +88,6 @@ class AchievementChooser : Fragment() {
 
     private fun setIfAchievementChecked(achievement: Achievement, view: ImageView) {
         val currentAchieve = MainActivity.app.getCurrentAchievement()
-        println("!!!!!!!!!!!!!!!!!!!!!!!")
-        println(currentAchieve?.type)
-        println("!!!!!!!!!!!!!!!!!!!!!!!")
         if (currentAchieve?.type == achievement.type)
             view.visibility = View.VISIBLE
 
