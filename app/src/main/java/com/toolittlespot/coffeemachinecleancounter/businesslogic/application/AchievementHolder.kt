@@ -12,8 +12,7 @@ class AchievementHolder {
     fun generate(){
         achievementList.clear()
         generateList()
-        if (currentAchievement == null)
-            currentAchievement = noneAchieve()
+        currentAchievement = noneAchieve()
     }
 
     fun selectAchievement(user: User?, item: Achievement){

@@ -7,6 +7,8 @@ import com.toolittlespot.coffeemachinecleancounter.R
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.application.*
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.language.Dict
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.language.LangMap
+import com.toolittlespot.coffeemachinecleancounter.uilogic.MainActivity
+import com.toolittlespot.coffeemachinecleancounter.uilogic.fragments.AchievementChooser
 import com.toolittlespot.coffeemachinecleancounter.uilogic.fragments.History
 import com.toolittlespot.coffeemachinecleancounter.uilogic.fragments.Statistics
 import java.io.File
@@ -22,8 +24,14 @@ class Application {
     private var achievements:AchievementHolder = AchievementHolder()
 
     fun getAchievements(): ArrayList<Achievement> {
-        achievements.generate()
         return achievements.achievementList
+    }
+
+    fun reachAchievement(activity: Activity) {
+        playAchievementSound(activity)
+        AchievementChooser.selectedUser = null
+        AchievementChooser.selectedAchievement = null
+        achievements.generate()
     }
 
     fun setNewAchievement(user: User?, item: Achievement, activity: Activity){
@@ -132,6 +140,14 @@ class Application {
 
     private fun playCleanMachineSound(activity: Activity) {
         val media = MediaPlayer.create(activity, R.raw.clean)
+        media.setOnCompletionListener {
+            media.release()
+        }
+        media.start()
+    }
+
+    private fun playAchievementSound(activity: Activity) {
+        val media = MediaPlayer.create(activity, R.raw.achievement)
         media.setOnCompletionListener {
             media.release()
         }

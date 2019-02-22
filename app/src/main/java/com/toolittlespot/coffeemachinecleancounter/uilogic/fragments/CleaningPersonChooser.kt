@@ -1,7 +1,5 @@
 package com.toolittlespot.coffeemachinecleancounter.uilogic.fragments
 
-
-import android.media.MediaPlayer
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -64,9 +62,15 @@ class CleaningPersonChooser : Fragment() {
             usersGrid.addView(userView, usersGrid.childCount - 1)
 
             userView.setOnClickListener{
+                val wasDirty = MainActivity.app.isMachineClean().not()
                 MainActivity.app.cleanCoffeeMachine(user, activity!!)
                 AppUtils().showSnackBar(fragmentView, MainActivity.app.getDict(Dict.COFFEE_MACHINE_CLEAN))
                 (activity as MainActivity).onBackPressed()
+
+                if (wasDirty){
+                    MainActivity.app.reachAchievement(activity!!)
+                    (activity as MainActivity).changeMainLayout(AchievementChooser())
+                }
             }
         }
     }

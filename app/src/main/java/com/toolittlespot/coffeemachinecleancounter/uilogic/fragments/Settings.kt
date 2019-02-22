@@ -41,21 +41,11 @@ class Settings : Fragment() {
     private fun configViews() {
         configAddUserBtn()
         configLanguageBtn()
-        configAchievementBtn()
         configSaveBtn()
         configResetBtn()
         configTextViews()
 
         configUsesBeforeClean()
-    }
-
-    private fun configAchievementBtn() {
-        achieveBtn = fragmentView.findViewById(R.id.choose_achievement_btn)
-        achieveBtn.setOnClickListener {
-            AchievementChooser.selectedUser = null
-            AchievementChooser.selectedAchievement = null
-            (activity as MainActivity).changeMainLayout(AchievementChooser())
-        }
     }
 
     private fun configTextViews() {

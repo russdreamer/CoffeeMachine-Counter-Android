@@ -1,6 +1,5 @@
 package com.toolittlespot.coffeemachinecleancounter.uilogic.fragments
 
-import android.media.MediaPlayer
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
@@ -10,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
 import com.toolittlespot.coffeemachinecleancounter.R
-import com.toolittlespot.coffeemachinecleancounter.businesslogic.AppUtils
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.language.Dict
 import com.toolittlespot.coffeemachinecleancounter.uilogic.MainActivity
 import kotlinx.android.synthetic.main.activity_main.*
