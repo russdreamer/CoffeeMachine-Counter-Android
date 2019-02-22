@@ -18,7 +18,8 @@ import com.toolittlespot.coffeemachinecleancounter.businesslogic.AppUtils
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.language.Dict
 import com.toolittlespot.coffeemachinecleancounter.uilogic.MainActivity
 
-class UsingPersonChooser : Fragment() {
+class CleaningPersonChooser : Fragment() {
+
     private lateinit var fragmentView: View
     private lateinit var addUserBtn: Button
     private lateinit var scrollView: ScrollView
@@ -28,7 +29,7 @@ class UsingPersonChooser : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        fragmentView =  inflater.inflate(R.layout.fragment_using_person_chooser, container, false)
+        fragmentView =  inflater.inflate(R.layout.fragment_cleaning_person_chooser, container, false)
         setDialogSize()
         configTextViews()
         fillUsersGrid()
@@ -38,7 +39,7 @@ class UsingPersonChooser : Fragment() {
     }
 
     private fun configTextViews() {
-        fragmentView.findViewById<TextView>(R.id.who_use_txt).text = MainActivity.app.getDict(Dict.WHO_USE)
+        fragmentView.findViewById<TextView>(R.id.who_clean_txt).text = MainActivity.app.getDict(Dict.WHO_CLEAN)
     }
 
     private fun configAddUserBtn() {
@@ -63,8 +64,8 @@ class UsingPersonChooser : Fragment() {
             usersGrid.addView(userView, usersGrid.childCount - 1)
 
             userView.setOnClickListener{
-                MainActivity.app.useCoffeeMachine(user, activity!!)
-                AppUtils().showSnackBar(fragmentView, MainActivity.app.getDict(Dict.COFFEE_MACHINE_USE))
+                MainActivity.app.cleanCoffeeMachine(user, activity!!)
+                AppUtils().showSnackBar(fragmentView, MainActivity.app.getDict(Dict.COFFEE_MACHINE_CLEAN))
                 (activity as MainActivity).onBackPressed()
             }
         }

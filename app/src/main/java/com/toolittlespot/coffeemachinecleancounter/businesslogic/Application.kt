@@ -2,6 +2,8 @@ package com.toolittlespot.coffeemachinecleancounter.businesslogic
 
 import android.app.Activity
 import android.content.Context
+import android.media.MediaPlayer
+import com.toolittlespot.coffeemachinecleancounter.R
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.application.*
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.language.Dict
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.language.LangMap
@@ -78,6 +80,7 @@ class Application {
     }
 
     fun useCoffeeMachine(user: User, activity: Activity){
+        MediaPlayer.create(activity, R.raw.use).start()
         coffeeMachineState.use()
         history.addAction(Action(user, ActionType.USE, Date()))
         History.adapter.notifyDataSetChanged()
@@ -85,14 +88,12 @@ class Application {
         ApplicationState.saveAppState(activity)
     }
 
-    fun cleanCoffeeMachine(activity: Activity){
+    fun cleanCoffeeMachine(user: User, activity: Activity){
+        MediaPlayer.create(activity, R.raw.clean).start()
         coffeeMachineState.clean()
-        if (history.read().isNotEmpty()){
-            val lastUser = history.read().last().user
-            history.addAction(Action(lastUser, ActionType.CLEAN, Date()))
-            History.adapter.notifyDataSetChanged()
-            updateStats()
-        }
+        history.addAction(Action(user, ActionType.CLEAN, Date()))
+        History.adapter.notifyDataSetChanged()
+        updateStats()
         ApplicationState.saveAppState(activity)
     }
 

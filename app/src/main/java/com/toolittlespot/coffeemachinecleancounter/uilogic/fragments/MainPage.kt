@@ -45,10 +45,7 @@ class MainPage : Fragment() {
         cleanBtn = fragmentView.findViewById(R.id.clean_button)
         cleanBtn.text = MainActivity.app.getDict(Dict.CLEAN)
         cleanBtn.setOnClickListener {
-            MediaPlayer.create(context, R.raw.clean).start()
-            MainActivity.app.cleanCoffeeMachine(activity!!)
-            useBtn.isEnabled = true
-            AppUtils().showSnackBar(fragmentView, MainActivity.app.getDict(Dict.COFFEE_MACHINE_CLEAN))
+            (activity as MainActivity).changeMainLayout(CleaningPersonChooser())
         }
     }
 
