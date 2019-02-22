@@ -12,6 +12,7 @@ import com.toolittlespot.coffeemachinecleancounter.R
 import com.toolittlespot.coffeemachinecleancounter.Views
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.AppUtils
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.ApplicationState
+import com.toolittlespot.coffeemachinecleancounter.businesslogic.application.Achievement
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.dialogs.Dialogs
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.language.Dict
 import com.toolittlespot.coffeemachinecleancounter.uilogic.MainActivity
@@ -20,6 +21,7 @@ class Settings : Fragment() {
     private lateinit var fragmentView: View
     private lateinit var addUserBtn: Button
     private lateinit var languageBtn: Button
+    private lateinit var achieveBtn: Button
     private lateinit var saveButton: Button
     private lateinit var resetButton: Button
     private lateinit var usesBeforeClean: EditText
@@ -39,11 +41,21 @@ class Settings : Fragment() {
     private fun configViews() {
         configAddUserBtn()
         configLanguageBtn()
+        configAchievementBtn()
         configSaveBtn()
         configResetBtn()
         configTextViews()
 
         configUsesBeforeClean()
+    }
+
+    private fun configAchievementBtn() {
+        achieveBtn = fragmentView.findViewById(R.id.choose_achievement_btn)
+        achieveBtn.setOnClickListener {
+            AchievementChooser.selectedUser = null
+            AchievementChooser.selectedAchievement = null
+            (activity as MainActivity).changeMainLayout(AchievementChooser())
+        }
     }
 
     private fun configTextViews() {
@@ -86,7 +98,7 @@ class Settings : Fragment() {
                     (activity as MainActivity).changeMainLayout(MainPage(), false)
             }
             else
-                AppUtils().showSnackBar(fragmentView, "Заполните все параметры!")
+                AppUtils().showSnackBar(fragmentView, MainActivity.app.getDict(Dict.FIELD_NOT_FILLED))
         }
     }
 

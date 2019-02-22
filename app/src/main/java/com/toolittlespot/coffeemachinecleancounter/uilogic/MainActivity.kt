@@ -72,6 +72,10 @@ class MainActivity : AppCompatActivity(){
         return true
     }
 
+    fun refreshFragment(fragment: Fragment){
+        supportFragmentManager.beginTransaction().detach(fragment).attach(fragment).commit()
+    }
+
     private fun createActionBar() {
         this.setSupportActionBar(toolbar)
     }

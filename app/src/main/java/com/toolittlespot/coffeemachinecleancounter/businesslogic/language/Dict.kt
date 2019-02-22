@@ -14,7 +14,7 @@ enum class Dict(val russian: String, val english: String) {
         "Are you sure?"
     ),
     FIELD_NOT_FILLED(
-        "Заполните все параметры пользователя!",
+        "Заполните все параметры!",
         "Fill in all the fields!"
     ),
     CLEAN_HISTORY(
@@ -120,6 +120,50 @@ enum class Dict(val russian: String, val english: String) {
     COFFEE_MACHINE_CLEAN(
         "Кофемашина очищена!",
         "Coffee machine is cleared!"
+    ),
+    CLEAN_HANDS(
+        "Чистые руки",
+        "Clean hands"
+    ),
+    CLEAN_HANDS_DESCRIPTION(
+        "У выбранного кофемана значительно уменьшается шанс в следующий раз мыть кофемашину",
+        "Chosen coffee-lover has significantly reduced chance to wash the coffee machine  next time"
+    ),
+    SOUNDS_FUNNY(
+        "Звучит смешно",
+        "Sounds funny"
+    ),
+    SOUNDS_FUNNY_DESCRIPTION(
+        "У выбранного кофемана каждое использование кофемашины будет сопровождаться неприятным звуком. Действует до следующей чистки",
+        "It will sound unpleasantly each time when chosen coffee-lover uses coffee machine. Valid until the next cleaning"
+    ),
+    SECRET_MESSAGE(
+        "Тайное послание",
+        "Secret message"
+    ),
+    SECRET_MESSAGE_DESCRIPTION(
+        "При первом же использовании кофемашины выбранный кофеман получит анонимное сообщение",
+        "When using the coffee machine for the first time, the chosen coffee-lover will receive an anonymous message"
+    ),
+    NONE(
+        "Ничего",
+        "None"
+    ),
+    NONE_DESCRIPTION(
+        "Ничего не происходит",
+        "Nothing happens"
+    ),
+    CHOOSE_ACHIEVE_USER(
+        "Выберите кофемана, на которого будет направлена ачика",
+        "Choose a coffee-lover to direct achievement to"
+    ),
+    SECRET_MESSAGE_HINT(
+        "ваше секретное послание...",
+        "your secret message..."
+    ),
+    TYPE_SECRET_MESSAGE(
+        "Введите анонимное послание выбранному кофеману",
+        "Type your anonymous message to chosen coffee-lover"
     ),
     ;
 

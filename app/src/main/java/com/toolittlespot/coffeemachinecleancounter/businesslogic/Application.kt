@@ -9,12 +9,28 @@ import com.toolittlespot.coffeemachinecleancounter.uilogic.fragments.History
 import com.toolittlespot.coffeemachinecleancounter.uilogic.fragments.Statistics
 import java.io.File
 import java.util.*
+import kotlin.collections.ArrayList
 
 class Application {
     private var usersPanel: UsersPanel = UsersPanel()
     private var coffeeMachineState: CoffeeMachineState = CoffeeMachineState(0)
     private var history: HistoryImpl = HistoryImpl()
     private var dict: LangMap = LangMap()
+    private var achievements:AchievementHolder = AchievementHolder()
+
+    fun getAchievements(): ArrayList<Achievement> {
+        achievements.generate()
+        return achievements.achievementList
+    }
+
+    fun setNewAchievement(user: User?, item: Achievement, activity: Activity){
+        achievements.selectAchievement(user, item)
+        ApplicationState.saveAppState(activity)
+    }
+
+    fun getCurrentAchievement(): Achievement?{
+        return achievements.currentAchievement
+    }
 
     fun getDict(word: Dict): String {
         return dict.getDict(word)
