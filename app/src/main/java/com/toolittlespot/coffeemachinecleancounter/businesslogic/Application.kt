@@ -12,6 +12,7 @@ import com.toolittlespot.coffeemachinecleancounter.uilogic.fragments.Statistics
 import java.io.File
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.random.Random
 
 class Application {
     private var usersPanel: UsersPanel = UsersPanel()
@@ -80,7 +81,7 @@ class Application {
     }
 
     fun useCoffeeMachine(user: User, activity: Activity){
-        MediaPlayer.create(activity, R.raw.use).start()
+        playUseMachineSound(user, activity)
         coffeeMachineState.use()
         history.addAction(Action(user, ActionType.USE, Date()))
         History.adapter.notifyDataSetChanged()
@@ -89,7 +90,7 @@ class Application {
     }
 
     fun cleanCoffeeMachine(user: User, activity: Activity){
-        MediaPlayer.create(activity, R.raw.clean).start()
+        playCleanMachineSound(activity)
         coffeeMachineState.clean()
         history.addAction(Action(user, ActionType.CLEAN, Date()))
         History.adapter.notifyDataSetChanged()
@@ -127,5 +128,31 @@ class Application {
         Statistics.cleanAdapter.mData = statGen.stats.cleanList
         Statistics.useAdapter.notifyDataSetChanged()
         Statistics.cleanAdapter.notifyDataSetChanged()
+    }
+
+    private fun playCleanMachineSound(activity: Activity) {
+        val media = MediaPlayer.create(activity, R.raw.clean)
+        media.setOnCompletionListener {
+            media.release()
+        }
+        media.start()
+    }
+
+    private fun playUseMachineSound(user: User, activity: Activity) {
+        val media:MediaPlayer
+        media = if (
+            achievements.currentAchievement?.type == Achievement.Type.SOUNDS_FUNNY
+            && achievements.chosenUser?.getId() == user.getId()
+        ) {
+            val num = Random.nextInt(1,6)
+            val resID = activity.resources.getIdentifier("fart$num", "raw", activity.packageName)
+            MediaPlayer.create(activity, resID)
+
+        } else MediaPlayer.create(activity, R.raw.use)
+
+        media.setOnCompletionListener {
+            it.release()
+        }
+        media.start()
     }
 }
