@@ -7,7 +7,7 @@ class AchievementHolder {
     var achievementList = ArrayList<Achievement>()
     var currentAchievement: Achievement? = null
     var chosenUser: User? = null
-    private var isAchievementActive = false
+    var isAchievementActive = false
 
     fun generate(){
         achievementList.clear()

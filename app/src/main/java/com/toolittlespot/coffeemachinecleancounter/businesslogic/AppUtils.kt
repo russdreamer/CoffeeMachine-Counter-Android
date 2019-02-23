@@ -53,7 +53,7 @@ class AppUtils {
         return getTempImageFile(context).copyTo(File(directory, imageName), true)
     }
 
-    fun getApplicationFolder(folderName: String, context: Context?): File {
+    private fun getApplicationFolder(folderName: String, context: Context?): File {
         val cw = ContextWrapper(context)
         return cw.getDir(folderName, Context.MODE_PRIVATE)
 

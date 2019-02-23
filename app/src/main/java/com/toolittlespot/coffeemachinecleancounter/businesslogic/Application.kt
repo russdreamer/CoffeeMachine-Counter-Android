@@ -3,13 +3,14 @@ package com.toolittlespot.coffeemachinecleancounter.businesslogic
 import android.app.Activity
 import android.content.Context
 import android.media.MediaPlayer
+import android.support.v4.app.FragmentActivity
 import com.toolittlespot.coffeemachinecleancounter.R
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.application.*
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.language.Dict
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.language.LangMap
-import com.toolittlespot.coffeemachinecleancounter.uilogic.MainActivity
 import com.toolittlespot.coffeemachinecleancounter.uilogic.fragments.AchievementChooser
 import com.toolittlespot.coffeemachinecleancounter.uilogic.fragments.History
+import com.toolittlespot.coffeemachinecleancounter.uilogic.fragments.SecretMessage
 import com.toolittlespot.coffeemachinecleancounter.uilogic.fragments.Statistics
 import java.io.File
 import java.util.*
@@ -90,6 +91,7 @@ class Application {
 
     fun useCoffeeMachine(user: User, activity: Activity){
         playUseMachineSound(user, activity)
+        showSecretMessage(user, activity)
         coffeeMachineState.use()
         history.addAction(Action(user, ActionType.USE, Date()))
         History.adapter.notifyDataSetChanged()
@@ -154,6 +156,14 @@ class Application {
         media.start()
     }
 
+    private fun playSecretMessageSound(activity: Activity) {
+        val media = MediaPlayer.create(activity, R.raw.secret_message)
+        media.setOnCompletionListener {
+            media.release()
+        }
+        media.start()
+    }
+
     private fun playUseMachineSound(user: User, activity: Activity) {
         val media:MediaPlayer
         media = if (
@@ -170,5 +180,16 @@ class Application {
             it.release()
         }
         media.start()
+    }
+
+    private fun showSecretMessage(user: User, activity: Activity) {
+        if (achievements.isAchievementActive
+            && achievements.currentAchievement?.type == Achievement.Type.SECRET_MESSAGE
+            && user.getId() == achievements.chosenUser?.getId()){
+
+            SecretMessage().show((activity as FragmentActivity).supportFragmentManager, "")
+            playSecretMessageSound(activity)
+            achievements.isAchievementActive = false
+        }
     }
 }
