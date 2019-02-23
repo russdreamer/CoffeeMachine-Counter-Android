@@ -92,7 +92,11 @@ class Application {
     fun useCoffeeMachine(user: User, activity: Activity){
         playUseMachineSound(user, activity)
         showSecretMessage(user, activity)
-        coffeeMachineState.use()
+        if ( isCleanHandsAchievement(user, activity)) {
+            achievements.maxCleanHandsAchieveTimes--
+        }
+        else coffeeMachineState.use()
+
         history.addAction(Action(user, ActionType.USE, Date()))
         History.adapter.notifyDataSetChanged()
         updateStats()
@@ -191,5 +195,16 @@ class Application {
             playSecretMessageSound(activity)
             achievements.isAchievementActive = false
         }
+    }
+
+    private fun isCleanHandsAchievement(user: User, activity: Activity): Boolean{
+        return achievements.currentAchievement?.type == Achievement.Type.CLEAN_HANDS
+            && achievements.chosenUser?.getId() == user.getId()
+            && isLastTimeToUse()
+            && achievements.maxCleanHandsAchieveTimes > 0
+    }
+
+    private fun isLastTimeToUse(): Boolean {
+        return (coffeeMachineState.maxUseAmount - coffeeMachineState.useAmount) == 1
     }
 }

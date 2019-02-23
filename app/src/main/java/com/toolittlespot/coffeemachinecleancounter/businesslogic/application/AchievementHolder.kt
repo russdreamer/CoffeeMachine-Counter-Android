@@ -8,11 +8,18 @@ class AchievementHolder {
     var currentAchievement: Achievement? = null
     var chosenUser: User? = null
     var isAchievementActive = false
+    var maxCleanHandsAchieveTimes: Int = 0
 
     fun generate(){
         achievementList.clear()
         generateList()
         currentAchievement = noneAchieve()
+        maxCleanHandsAchieveTimes = getMaxDirtyTimes()
+    }
+
+    private fun getMaxDirtyTimes(): Int {
+        val max = MainActivity.app.getMaxUseAmountMachine()
+        return Math.ceil(max / 15.0).toInt()
     }
 
     fun selectAchievement(user: User?, item: Achievement){

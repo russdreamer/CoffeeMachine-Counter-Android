@@ -44,7 +44,7 @@ class AchieveUserChooser : Fragment() {
         val usersList = MainActivity.app.getUsers()
         usersList.forEach {user->
             val userView = Views.createUserView(user, size, context)
-            usersGrid.addView(userView, usersGrid.childCount - 1)
+            usersGrid.addView(userView)
 
             userView.setOnClickListener{
                 AchievementChooser.selectedUser = user
