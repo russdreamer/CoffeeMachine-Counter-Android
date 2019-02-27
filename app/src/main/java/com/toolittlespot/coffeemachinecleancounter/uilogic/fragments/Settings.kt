@@ -51,7 +51,6 @@ class Settings : Fragment() {
     private fun configTextViews() {
         fragmentView.findViewById<TextView>(R.id.uses_before_clean_text).text = MainActivity.app.getDict(Dict.NUMBER_USE_BEFORE_CLEAN)
         fragmentView.findViewById<TextView>(R.id.who_use_txt).text = MainActivity.app.getDict(Dict.ADD_COFFEE_LOVERS)
-        fragmentView.findViewById<TextView>(R.id.choose_achievement_txt).text = MainActivity.app.getDict(Dict.CHOOSE_ACHIEVEMENT)
         fragmentView.findViewById<TextView>(R.id.choose_language_btn).text = MainActivity.app.getDict(Dict.LANGUAGE)
         fragmentView.findViewById<TextView>(R.id.reset_btn).text = MainActivity.app.getDict(Dict.RESET_SETTINGS)
         fragmentView.findViewById<TextView>(R.id.save_settings_btn).text = MainActivity.app.getDict(Dict.SAVE)
