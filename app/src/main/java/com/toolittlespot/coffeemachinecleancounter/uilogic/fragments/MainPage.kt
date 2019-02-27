@@ -8,7 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.Toolbar
 import com.toolittlespot.coffeemachinecleancounter.R
+import com.toolittlespot.coffeemachinecleancounter.Views
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.language.Dict
 import com.toolittlespot.coffeemachinecleancounter.uilogic.MainActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -19,6 +21,7 @@ class MainPage : Fragment() {
     private lateinit var useBtn: Button
     private lateinit var cleanBtn: Button
     private lateinit var settingsBtn: ImageButton
+    //private lateinit var toolBar: Toolbar
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,10 +36,15 @@ class MainPage : Fragment() {
     }
 
     private fun configViews() {
+        configToolBar()
         configNavMenuBtn()
         configUseBtn()
         configSettingsBtn()
         configCleanBtn()
+    }
+
+    private fun configToolBar() {
+       // toolBar = fragmentView.findViewById(R.id.toolbar_main)
     }
 
     private fun configCleanBtn() {

@@ -97,7 +97,16 @@ class UserConstructor : Fragment() {
     }
 
     private fun configSaveBtn() {
-        fragmentView.findViewById<Button>(R.id.save_user_btn).setOnClickListener {
+        val saveBtn = fragmentView.findViewById<Button>(R.id.save_user_btn)
+        if (this.user == null){
+            val params = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                saveBtn.layoutParams.height,
+                2f)
+
+            saveBtn.layoutParams = params
+        }
+        saveBtn.setOnClickListener {
             if (isFieldsFilled()) {
                 if (user == null){
                     val userNAme = userNameField.text.toString()
@@ -145,13 +154,35 @@ class UserConstructor : Fragment() {
     }
 
     private fun saveToTempImage(data: Bitmap) {
-        AppUtils().saveTempImage(data, this.context)
+        val avaPic = cropImageToSquare(data)
+        AppUtils().saveTempImage(avaPic, this.context)
     }
 
     private fun saveToTempImage(data: Uri?) {
         if (data != null) {
             val bitmap = MediaStore.Images.Media.getBitmap(context?.contentResolver, data)
             saveToTempImage(bitmap)
+        }
+    }
+
+    private fun cropImageToSquare(data: Bitmap): Bitmap{
+        if (data.width >= data.height){
+            return  Bitmap.createBitmap(
+                data,
+                data.width/2 - data.height/2,
+                0,
+                data.height,
+                data.height
+            )
+
+        }else {
+            return Bitmap.createBitmap(
+                data,
+                0,
+                data.height / 2 - data.width / 2,
+                data.width,
+                data.width
+            )
         }
     }
 

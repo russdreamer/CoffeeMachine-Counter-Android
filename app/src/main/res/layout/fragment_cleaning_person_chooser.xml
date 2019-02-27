@@ -39,13 +39,7 @@
                         android:layout_marginTop="8dp"
                         app:layout_constraintTop_toBottomOf="@+id/who_clean_txt"
                         app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintEnd_toEndOf="parent">
-                    <Button
-                            android:text="+"
-                            android:layout_height="200dp" android:id="@+id/add_user_btn" android:textSize="36sp"
-                            android:textStyle="bold" android:textAllCaps="false"
-                            android:layout_width="200dp"/>
-                </GridLayout>
+                        app:layout_constraintEnd_toEndOf="parent"/>
 
             </android.support.constraint.ConstraintLayout>
         </LinearLayout>

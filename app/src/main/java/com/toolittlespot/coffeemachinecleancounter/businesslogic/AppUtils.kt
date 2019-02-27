@@ -1,5 +1,6 @@
 package com.toolittlespot.coffeemachinecleancounter.businesslogic
 
+import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
 import android.graphics.Bitmap
@@ -64,7 +65,7 @@ class AppUtils {
         return File(directory, TEMP_IMAGE)
     }
 
-    fun getDevicePixelWidth(activity: MainActivity): DisplayMetrics {
+    fun getDevicePixelSize(activity: Activity): DisplayMetrics {
         val displayMetrics = DisplayMetrics()
         activity.windowManager.defaultDisplay.getMetrics(displayMetrics)
         return displayMetrics

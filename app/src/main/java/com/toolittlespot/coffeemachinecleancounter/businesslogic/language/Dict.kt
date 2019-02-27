@@ -38,7 +38,7 @@ enum class Dict(val russian: String, val english: String) {
         "CLEAN"
     ),
     USE(
-        "ПРИГОТОВИТЬ\nКОФЕ",
+        "СДЕЛАТЬ\nКОФЕ",
         "MAKE\nCOFFEE"
     ),
     CANCEL(

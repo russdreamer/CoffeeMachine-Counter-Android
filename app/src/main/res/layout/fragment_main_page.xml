@@ -9,7 +9,8 @@
 
     <android.support.v7.widget.Toolbar
             android:layout_width="830dp"
-            android:layout_height="60dp"
+            android:layout_height="0dp"
+            android:layout_weight=".10"
             android:background="@drawable/tool_bar"
             android:theme="?attr/actionBarTheme"
             android:minHeight="?attr/actionBarSize"
@@ -32,34 +33,42 @@
             app:layout_constraintBottom_toBottomOf="@+id/toolbar_main"
             app:layout_constraintEnd_toEndOf="parent" android:layout_width="50dp" android:scaleType="centerCrop"
             android:background="@drawable/settings_button_effect"/>
-    <Button
-            android:layout_width="0dp"
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:id="@+id/use_button"
-            android:background="@drawable/use_button_effect"
-            android:textSize="45sp"
             app:layout_constraintTop_toBottomOf="@+id/toolbar_main"
-            app:layout_constraintBottom_toTopOf="@+id/clean_button"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:textColor="@android:color/white"
-            app:layout_constraintVertical_bias="1.0" android:textAlignment="textEnd" android:paddingTop="0dp"
-            android:paddingStart="0dp" android:paddingBottom="200dp" android:paddingRight="50dp"
-            android:fontFamily="@font/frankc" android:textStyle="bold"/>
-    <Button
-            android:layout_width="0dp"
-            android:layout_height="250dp"
-            android:id="@+id/clean_button"
-            android:background="@drawable/clean_button_effect"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:textSize="45sp"
-            android:textColor="@android:color/white" android:textAlignment="textEnd"
-            android:paddingRight="50dp" android:paddingBottom="100dp"
-            android:fontFamily="@font/frankc" android:textStyle="bold"/>
+            app:layout_constraintBottom_toBottomOf="parent">
+        <Button
+                android:layout_weight="1"
+                android:id="@+id/use_button"
+                android:background="@drawable/use_button_effect"
+                android:textSize="45sp"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar_main"
+                app:layout_constraintBottom_toTopOf="@+id/clean_button"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textColor="@android:color/white"
+                app:layout_constraintVertical_bias="1.0" android:textAlignment="textEnd"
+                android:paddingRight="30dp"
+                android:fontFamily="@font/frankc" android:textStyle="bold" android:layout_width="match_parent"
+                android:layout_height="0dp"/>
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:id="@+id/clean_button"
+                android:background="@drawable/clean_button_effect"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textSize="45sp"
+                android:textColor="@android:color/white" android:textAlignment="textEnd"
+                android:paddingRight="30dp"
+                android:fontFamily="@font/frankc" android:textStyle="bold"/>
+    </LinearLayout>
 
 
 </android.support.constraint.ConstraintLayout>

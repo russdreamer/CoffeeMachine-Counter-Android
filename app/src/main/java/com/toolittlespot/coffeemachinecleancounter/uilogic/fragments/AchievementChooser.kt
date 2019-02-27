@@ -77,7 +77,6 @@ class AchievementChooser : Fragment() {
             }
             achievementChooser.addView(item)
         }
-
     }
 
     private fun setNewAchievement(achievement: Achievement) {

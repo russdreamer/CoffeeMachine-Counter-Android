@@ -12,7 +12,6 @@ import com.toolittlespot.coffeemachinecleancounter.R
 import com.toolittlespot.coffeemachinecleancounter.Views
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.AppUtils
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.ApplicationState
-import com.toolittlespot.coffeemachinecleancounter.businesslogic.application.Achievement
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.dialogs.Dialogs
 import com.toolittlespot.coffeemachinecleancounter.businesslogic.language.Dict
 import com.toolittlespot.coffeemachinecleancounter.uilogic.MainActivity
@@ -111,7 +110,7 @@ class Settings : Fragment() {
 
     private fun fillUsersGrid() {
         val usersGrid = fragmentView.findViewById<GridLayout>(R.id.users)
-        val size = AppUtils().getDevicePixelWidth(activity as MainActivity).widthPixels / 3
+        val size = AppUtils().getDevicePixelSize(activity as MainActivity).widthPixels / 3
         val usersList = MainActivity.app.getUsers()
         usersList.forEach {user->
             val userView = Views.createUserView(user, size, context)
@@ -127,7 +126,7 @@ class Settings : Fragment() {
 
     private fun configAddUserBtn() {
         addUserBtn = fragmentView.findViewById(R.id.add_user_btn)
-        val size = AppUtils().getDevicePixelWidth(activity as MainActivity).widthPixels / 3
+        val size = AppUtils().getDevicePixelSize(activity as MainActivity).widthPixels / 3
         Views.changeViewSize(addUserBtn, size)
         addUserBtn.setOnClickListener {
             (activity as MainActivity).changeMainLayout(UserConstructor())

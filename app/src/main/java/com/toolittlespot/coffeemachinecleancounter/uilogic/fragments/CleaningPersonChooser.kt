@@ -19,7 +19,6 @@ import com.toolittlespot.coffeemachinecleancounter.uilogic.MainActivity
 class CleaningPersonChooser : Fragment() {
 
     private lateinit var fragmentView: View
-    private lateinit var addUserBtn: Button
     private lateinit var scrollView: ScrollView
 
     override fun onCreateView(
@@ -31,21 +30,12 @@ class CleaningPersonChooser : Fragment() {
         setDialogSize()
         configTextViews()
         fillUsersGrid()
-        configAddUserBtn()
 
         return fragmentView
     }
 
     private fun configTextViews() {
         fragmentView.findViewById<TextView>(R.id.who_clean_txt).text = MainActivity.app.getDict(Dict.WHO_CLEAN)
-    }
-
-    private fun configAddUserBtn() {
-        addUserBtn = fragmentView.findViewById(R.id.add_user_btn)
-        addUserBtn.setOnClickListener {
-            (activity as MainActivity).changeMainLayout(UserConstructor())
-            AppUtils().deleteTempImage(this.context)
-        }
     }
 
     private fun setDialogSize() {
@@ -55,7 +45,11 @@ class CleaningPersonChooser : Fragment() {
 
     private fun fillUsersGrid() {
         val usersGrid = fragmentView.findViewById<GridLayout>(R.id.users)
-        val size = AppUtils().getDevicePixelWidth(activity as MainActivity).widthPixels / 2
+        val size = AppUtils().getDevicePixelSize(activity as MainActivity).widthPixels / 2
+
+        val addUserBtn = Views.createAddUserBtn(size, activity!!)
+        usersGrid.addView(addUserBtn)
+
         val usersList = MainActivity.app.getUsers()
         usersList.forEach {user->
             val userView = Views.createUserView(user, size, context)

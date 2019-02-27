@@ -162,7 +162,6 @@ public class StatAdapter extends BaseAdapter implements Filterable, ThemedSpinne
         else quantityView.setText(String.valueOf(stat.getCleanTimes()));
 
         avatarView.setImageURI(Uri.parse(user.getAvatarPath()));
-        avatarView.setScaleType(ImageView.ScaleType.CENTER_CROP);
     }
 
     public Filter getFilter() {

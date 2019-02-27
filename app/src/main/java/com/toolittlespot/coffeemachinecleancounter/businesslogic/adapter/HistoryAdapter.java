@@ -159,7 +159,6 @@ public class HistoryAdapter extends BaseAdapter implements Filterable, ThemedSpi
         actionTypeView.setText(action.getType().toString());
 
         avatarView.setImageURI(Uri.parse(user.getAvatarPath()));
-        avatarView.setScaleType(ImageView.ScaleType.CENTER_CROP);
     }
 
     public Filter getFilter() {

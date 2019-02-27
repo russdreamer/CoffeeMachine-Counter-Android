@@ -40,7 +40,7 @@ class AchieveUserChooser : Fragment() {
 
     private fun fillUsersGrid() {
         val usersGrid = fragmentView.findViewById<GridLayout>(R.id.users)
-        val size = AppUtils().getDevicePixelWidth(activity as MainActivity).widthPixels / 2
+        val size = AppUtils().getDevicePixelSize(activity as MainActivity).widthPixels / 2
         val usersList = MainActivity.app.getUsers()
         usersList.forEach {user->
             val userView = Views.createUserView(user, size, context)

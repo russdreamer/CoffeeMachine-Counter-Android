@@ -5,7 +5,6 @@ import android.content.Context
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,7 +45,7 @@ class AvatarGallery : Fragment() {
 
     private fun fillGallery() {
         val avatarsGrid = fragmentView.findViewById<GridLayout>(R.id.avatars)
-        val size = AppUtils().getDevicePixelWidth(activity as MainActivity).widthPixels / 3
+        val size = AppUtils().getDevicePixelSize(activity as MainActivity).widthPixels / 3
 
         for (i in 1..16){
             val srcName = "avatar_$i"
