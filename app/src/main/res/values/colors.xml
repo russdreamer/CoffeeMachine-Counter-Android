@@ -3,4 +3,12 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="useButton">#D81B60</color>
+    <color name="cleanButton">#D81B60</color>
+    <color name="toolBar">#D81B60</color>
+    <color name="positiveButton">#009719</color>
+    <color name="negativeButton">#D81B31</color>
+    <color name="neutralButton">#C6D002</color>
+    <color name="bgCollor">#D5FBCE</color>
+    <color name="gridCollor">#FDF7CD</color>
 </resources>

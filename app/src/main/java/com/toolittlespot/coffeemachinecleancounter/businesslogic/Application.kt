@@ -92,7 +92,7 @@ class Application {
     fun useCoffeeMachine(user: User, activity: Activity){
         playUseMachineSound(user, activity)
         showSecretMessage(user, activity)
-        if ( isCleanHandsAchievement(user, activity)) {
+        if ( isCleanHandsAchievement(user)) {
             achievements.maxCleanHandsAchieveTimes--
         }
         else coffeeMachineState.use()
@@ -197,7 +197,7 @@ class Application {
         }
     }
 
-    private fun isCleanHandsAchievement(user: User, activity: Activity): Boolean{
+    private fun isCleanHandsAchievement(user: User): Boolean{
         return achievements.currentAchievement?.type == Achievement.Type.CLEAN_HANDS
             && achievements.chosenUser?.getId() == user.getId()
             && isLastTimeToUse()

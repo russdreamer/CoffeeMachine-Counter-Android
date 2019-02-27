@@ -38,7 +38,7 @@ class AvatarGallery : Fragment() {
 
     private fun setBackBtnListener() {
         val backBtn = fragmentView.findViewById<Button>(R.id.back_btn)
-        backBtn.text = MainActivity.app.getDict(Dict.CLEAN)
+        backBtn.text = MainActivity.app.getDict(Dict.CANCEL)
         backBtn.setOnClickListener{
             (activity as MainActivity).onBackPressed()
         }

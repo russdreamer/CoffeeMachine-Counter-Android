@@ -36,12 +36,14 @@
     </ScrollView>
     <Button
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:id="@+id/back_btn"
             tools:layout_conversion_absoluteHeight="48dp" tools:layout_conversion_absoluteWidth="88dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent" android:background="@drawable/negative_button_effect"
+            android:fontFamily="@font/frankc" android:textSize="24sp" android:textColor="@android:color/white"
+            app:layout_constraintHorizontal_bias="0.0"/>
 
 
 </android.support.constraint.ConstraintLayout>

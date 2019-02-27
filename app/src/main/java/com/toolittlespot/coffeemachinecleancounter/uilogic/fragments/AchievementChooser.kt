@@ -73,17 +73,26 @@ class AchievementChooser : Fragment() {
             item.findViewById<TextView>(R.id.achievement_name).text = achievement.name
             item.findViewById<TextView>(R.id.achievement_description).text = achievement.description
             item.setOnClickListener{
-                selectedAchievement = achievement
-                selectedUser = null
-                if (achievement.type == Achievement.Type.NONE){
-                    MainActivity.app.setNewAchievement(null, achievement, activity!!)
-                    (activity as MainActivity).refreshFragment(this)
-                }
-                else (activity as MainActivity).changeMainLayout(AchieveUserChooser())
+                setNewAchievement(achievement)
             }
             achievementChooser.addView(item)
         }
 
+    }
+
+    private fun setNewAchievement(achievement: Achievement) {
+        selectedAchievement = achievement
+        selectedUser = null
+
+        if (achievement.type == Achievement.Type.SECRET_MESSAGE){
+            selectedAchievement?.message = null
+        }
+
+        if (achievement.type == Achievement.Type.NONE){
+            MainActivity.app.setNewAchievement(null, achievement, activity!!)
+            (activity as MainActivity).refreshFragment(this)
+        }
+        else (activity as MainActivity).changeMainLayout(AchieveUserChooser())
     }
 
     private fun setIfAchievementChecked(achievement: Achievement, view: ImageView) {

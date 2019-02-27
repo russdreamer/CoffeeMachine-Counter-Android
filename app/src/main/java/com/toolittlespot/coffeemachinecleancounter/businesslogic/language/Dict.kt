@@ -38,8 +38,8 @@ enum class Dict(val russian: String, val english: String) {
         "CLEAN"
     ),
     USE(
-        "ИСПОЛЬЗОВАНИЕ",
-        "USE"
+        "ПРИГОТОВИТЬ\nКОФЕ",
+        "MAKE\nCOFFEE"
     ),
     CANCEL(
         "ОТМЕНА",
@@ -162,7 +162,7 @@ enum class Dict(val russian: String, val english: String) {
         "Nothing happens"
     ),
     CHOOSE_ACHIEVE_USER(
-        "Выберите кофемана, на которого будет направлена ачика",
+        "Выберите кофемана, на которого будет направлена ачивка",
         "Choose a coffee-lover to direct achievement to"
     ),
     SECRET_MESSAGE_HINT(

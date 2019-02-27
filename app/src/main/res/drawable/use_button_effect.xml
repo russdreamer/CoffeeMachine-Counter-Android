@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:drawable="@mipmap/ic_launcher" android:state_selected="true"/>
-    <item android:drawable="@drawable/ic_menu_gallery" android:state_pressed="true"/>
-    <item android:drawable="@mipmap/ic_launcher"/>
+    <item android:drawable="@drawable/use_button" android:state_selected="true"/>
+    <item android:drawable="@drawable/use_button_pressed" android:state_pressed="true"/>
+    <item android:drawable="@drawable/use_button_disabled" android:state_enabled="false"/>
+    <item android:drawable="@drawable/use_button"/>
 
 </selector>

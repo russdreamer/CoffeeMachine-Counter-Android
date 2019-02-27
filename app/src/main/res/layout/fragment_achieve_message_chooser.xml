@@ -26,9 +26,10 @@
     <Button
             android:text="OK"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:id="@+id/message_ok_btn"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:textSize="24sp" android:textStyle="bold"/>
+            android:textSize="30sp" android:textStyle="bold" android:background="@drawable/positive_button_effect"
+            android:textColor="@android:color/white" android:fontFamily="@font/frankc"/>
 </android.support.constraint.ConstraintLayout>

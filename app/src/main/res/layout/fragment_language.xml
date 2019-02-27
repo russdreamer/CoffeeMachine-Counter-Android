@@ -4,21 +4,24 @@
                                              xmlns:tools="http://schemas.android.com/tools"
                                              android:layout_width="match_parent"
                                              android:layout_height="match_parent"
-                                             tools:context=".uilogic.fragments.Language" android:id="@+id/frameLayout4">
+                                             tools:context=".uilogic.fragments.Language" android:id="@+id/frameLayout4"
+                                             android:background="@color/bgCollor">
+
     <Button
             android:text="ENGLISH"
             android:layout_width="0dp"
             android:layout_height="200dp" android:id="@+id/english_language"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" android:background="@drawable/england_flag"
-            android:textSize="30sp" android:textStyle="bold"/>
+            android:textSize="36sp" android:textStyle="bold" android:fontFamily="@font/frankc"/>
     <Button
             android:text="РУССКИЙ"
             android:layout_width="0dp"
             android:layout_height="200dp" android:id="@+id/russian_language"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" android:background="@drawable/russian_flag"
-            android:textSize="30sp" android:textStyle="bold"
+            android:textSize="36sp" android:textStyle="bold"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintTop_toBottomOf="@+id/english_language" android:textColor="@android:color/white"/>
+            app:layout_constraintTop_toBottomOf="@+id/english_language" android:textColor="@android:color/white"
+            android:layout_marginTop="16dp" android:fontFamily="@font/frankc"/>
 </android.support.constraint.ConstraintLayout>
