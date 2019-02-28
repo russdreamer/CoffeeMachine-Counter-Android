@@ -165,23 +165,27 @@ class UserConstructor : Fragment() {
         }
     }
 
-    private fun cropImageToSquare(data: Bitmap): Bitmap{
+    private fun cropImageToSquare(data: Bitmap, size: Int): Bitmap{
         if (data.width >= data.height){
+            val longSide = (size * data.width) / data.height
+            val resizedData = Bitmap.createScaledBitmap(data, longSide, size, true)
             return  Bitmap.createBitmap(
-                data,
-                data.width/2 - data.height/2,
+                resizedData,
+                resizedData.width/2 - resizedData.height/2,
                 0,
-                data.height,
-                data.height
+                resizedData.height,
+                resizedData.height
             )
 
         }else {
+            val longSide = (size * data.height) / data.width
+            val resizedData = Bitmap.createScaledBitmap(data, size, longSide, true)
             return Bitmap.createBitmap(
-                data,
+                resizedData,
                 0,
-                data.height / 2 - data.width / 2,
-                data.width,
-                data.width
+                resizedData.height / 2 - resizedData.width / 2,
+                resizedData.width,
+                resizedData.width
             )
         }
     }
