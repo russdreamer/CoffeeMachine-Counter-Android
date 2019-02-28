@@ -13,6 +13,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import com.toolittlespot.coffeemachinecleancounter.AVATAR_SIZE
 import com.toolittlespot.coffeemachinecleancounter.CAPTURE_IMAGE
 import com.toolittlespot.coffeemachinecleancounter.PICK_IMAGE
 import com.toolittlespot.coffeemachinecleancounter.R
@@ -154,7 +155,7 @@ class UserConstructor : Fragment() {
     }
 
     private fun saveToTempImage(data: Bitmap) {
-        val avaPic = cropImageToSquare(data)
+        val avaPic = cropImageToSquare(data, AVATAR_SIZE)
         AppUtils().saveTempImage(avaPic, this.context)
     }
 
